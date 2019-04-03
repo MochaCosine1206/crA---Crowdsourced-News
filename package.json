@@ -19,7 +19,15 @@
     "nodemon": "^1.18.7"
   },
   "dependencies": {
+    "axios": "^0.18.0",
+    "compromise": "^11.13.2",
     "express": "^4.16.3",
-    "if-env": "^1.0.4"
+    "if-env": "^1.0.4",
+    "mongoose": "^5.4.20",
+    "node-summary": "^1.2.0",
+    "open-graph-scraper": "^3.6.1",
+    "sentiword": "0.0.1",
+    "unfluff": "^3.2.0",
+    "website-logo": "^1.1.1"
   }
 }
