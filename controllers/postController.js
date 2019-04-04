@@ -2,11 +2,11 @@ const db = require("../models");
 const axios = require("axios")
 // const ogs = require('open-graph-scraper')
 const extractor = require('unfluff')
-const SummaryTool = require('node-summary')
 const sw = require('sentiword');
 const nlp = require('compromise');
 const url = require('url');
 var websiteLogo = require('website-logo');
+var quoteParser = require('quote-parser');
 
 // Defining methods for the postsController
 module.exports = {
@@ -25,15 +25,18 @@ module.exports = {
         console.log(error || images)
 
         console.log(decodeURI(images.logo))
-        const logo = decodeURI(images.logo)
+        const logoExtract = decodeURI(images.logo)
+        const logo = logoExtract.split(/,(.+)/)[1]
+        const altLogo = images.openGraph
+        
 
-        getSiteData(url, logo)
+        getSiteData(url, logo, altLogo, myURL.hostname)
       })
     }
 getLogo(req.body.articleSubmition)
 
 
-    getSiteData = (url, logo) => {
+    getSiteData = (url, logo, altLogo, hostSite) => {
       //use unfluff
       axios.get(url)
         .then(function (response) {
@@ -68,17 +71,12 @@ getLogo(req.body.articleSubmition)
           console.log("--------------------------------------/n");
           console.log("keywords: " + unfluffData.keywords);
           console.log("--------------------------------------/n");
-          let text = unfluffData.text
+          let text = unfluffData.text;
+
+          textQuotes = quoteParser.parse(text, 'en', { minLength: 10 });
+          console.log("quotes: " + textQuotes)
 
 
-          let summarizedText = "";
-          // user summarizer
-          SummaryTool.summarize(text, function (err, summary) {
-            if (err) console.log(err)
-            console.log("This is the summary of the text: " + summary);
-            summarizedText = summary
-            console.log("--------------------------------------/n");
-          })
 
 
 
@@ -109,8 +107,14 @@ getLogo(req.body.articleSubmition)
           }
 
           let result = {};
+          result.siteName = hostSite;
 
-          result.title = unfluffData.title;
+          if (unfluffData.title.includes("Are you a robot?")){
+            result.title = "";
+          } else {
+            result.title = unfluffData.title;
+          }
+
           result.publishedDate = unfluffData.date;
           result.author = unfluffData.author;
           result.publisher = unfluffData.publisher;
@@ -122,7 +126,7 @@ getLogo(req.body.articleSubmition)
           result.image = unfluffData.image;
           result.videos = unfluffData.videos;
           result.links = unfluffData.links;
-          result.text = unfluffData.text;
+          result.text = text
           result.keywords = unfluffData.keywords
           result.sentimentScore = sentimentScore.sentiment;
           result.avgSentiment = sentimentScore.avgSentiment;
@@ -130,8 +134,9 @@ getLogo(req.body.articleSubmition)
           result.positiveScore = sentimentScore.positive;
           result.negativeScore = sentimentScore.negative;
           result.compromiseKeywords = compromiseArr;
-          result.summaryText = summarizedText;
+          result.quotes = textQuotes;
           result.logo = logo;
+          result.altLogo = altLogo;
 
           console.log(result);
           db.Posts.create(result)
@@ -152,7 +157,7 @@ getLogo(req.body.articleSubmition)
       .catch(err => res.status(422).json(err));
   },
   findById: function (req, res) {
-    db.Post
+    db.Posts
       .findById(req.params.id)
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));

@@ -1,19 +1,19 @@
 import React, { Component } from "react";
 import Navbar from "../components/Navbar";
-import Jumbotron from "../components/Jumbotron";
+import PostPage from "../components/PostPage";
 
 
-class Home extends Component {
+class Post extends Component {
 
 
 render() {
     return (
         <div>
         <Navbar />
-        <Jumbotron />
+        <PostPage />
         </div>
     );
 }
 }
 
-export default Home;
+export default Post;

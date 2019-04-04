@@ -1,11 +1,13 @@
 import React, { Component } from "react";
+import { withRouter } from "react-router-dom";
 import API from "../../utils/API";
 import "./style.css";
 import {Input, FormBtn} from "../PostForm";
 import { Row, Container, Col } from "../Grid";
+import CardPostContainer from "../CardPostContainer";
 
 
-class Jumbotron extends Component {
+class PostPage extends Component {
     state = {
         posts: [],
         post: ""
@@ -39,8 +41,14 @@ class Jumbotron extends Component {
         })
     };
 
+    postDetail = (id) => {
+        console.log(id);
+        this.props.history.push("/post/" + id)
+    }
+
 render() {
     return (
+        <div>
         <div className="jumbotron jumbotron-fluid">
         <Container>
         <h1 className="display-5">Post Here</h1>
@@ -68,9 +76,39 @@ render() {
         </Container>
         
         </div>
+        {this.state.posts.map(post => (
+            <CardPostContainer
+            key={post._id}
+            id={post._id}
+            title={post.title}
+            site={post.publisher}
+            favicon={post.favicon}
+            publishedDate={post.publishedDate}
+            siteUrl={post.url}
+            author={post.author}
+            description={post.description}
+            image={post.image}
+            text={post.text}
+            keywords={post.keywords}
+            tags={post.tags}
+            backupKeywords={post.compromiseKeywords}
+            avgSentiment={post.avgSentiment}
+            sentimentScore={post.sentimentScore}
+            objectiveScore={post.objectiveScore}
+            negativeScore={post.negativeScore}
+            positiveScore={post.positiveScore}
+            logo={post.logo}
+            altLogo={post.altLogo}
+            quotes={post.quotes}
+            postDetail={this.postDetail}
+            >
+            </CardPostContainer>
+        ))}
+        
+        </div>
     );
 }
 
 }
 
-export default Jumbotron;
+export default withRouter(PostPage);

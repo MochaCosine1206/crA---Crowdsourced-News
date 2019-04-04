@@ -10,6 +10,10 @@ export default {
         return axios.get("/api/post");
     },
 
+    getPost: function(id) {
+        return axios.get("/api/post/" + id);
+      },
+
     // // Saves a book to the database
     // saveBook: function (bookData) {
     //     return axios.post("/api/post", bookData);
