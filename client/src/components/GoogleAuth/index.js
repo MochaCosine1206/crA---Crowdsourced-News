@@ -21,8 +21,8 @@ render() {
     return (
         <div>
             <Container>
-            {/* <a href="http://localhost:3001/auth/google" className="button"> */}
-            <button onClick={this.getGoogleAuth} className="button">
+            <a href="/auth/google" className="button">
+            {/* <button onClick={this.getGoogleAuth} className="button"> */}
 
           <div>
             <span className="svgIcon t-popup-svg">
@@ -54,8 +54,8 @@ render() {
        </span>
      <span className="button-label">Sign in with Google</span>
    </div>
-   </button>
- {/* </a> */}
+   {/* </button> */}
+ </a>
             </Container>
         </div>
     );
