@@ -1,6 +1,7 @@
 const router = require("express").Router();
-// const google = require("./google");
 const passport = require("passport");
+
+
 
 
 
@@ -9,15 +10,25 @@ router.get('/google', passport.authenticate('google', {
 }))
 
 
+// router.get('/google', (req, res) => {
+//     res.send("In Server")
+// })
+
 router.get('/google/callback', passport.authenticate('google'), (req, res) => {
     console.log("Does req.user exist: " + req.user)
     if (!req.user) {
-        res.redirect("http://localhost:3000")
+        res.redirect("/")
     } else {
         res.redirect("http://localhost:3000/post")
     }
 
 })
+
+// router.get('/google/callback', passport.authenticate('google',{
+//     successRedirect: '/post',
+//     failureRedirect: '/'
+// })
+// )
 
 router.get('/logout', (req, res) => {
     req.logout();

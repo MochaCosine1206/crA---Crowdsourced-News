@@ -17,11 +17,11 @@ passport.deserializeUser((id, done) => {
 passport.use(
     new GoogleStrategy({
         //options for strategy
-        clientID: keys.google.clientID,
-        // clientID: process.env.GOOGLE_clientID,
-        clientSecret: keys.google.clientSecret,
-        // clientSecret: process.env.GOOGLE_clientSecret,
-        callbackURL: 'http://localhost:3001/auth/google/callback',
+        // clientID: keys.google.clientID,
+        clientID: process.env.GOOGLE_clientID,
+        // clientSecret: keys.google.clientSecret,
+        clientSecret: process.env.GOOGLE_clientSecret,
+        callbackURL: '/auth/google/callback',
     }, (accessToken, refreshToken, profile, done) => {
         //passport callback function
         //check if user already exists

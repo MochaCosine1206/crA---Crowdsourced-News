@@ -27,19 +27,5 @@ export default {
         return axios.get("/auth/logout");
     }
 
-    // // Saves a book to the database
-    // saveBook: function (bookData) {
-    //     return axios.post("/api/post", bookData);
-    // },
-
-    // //Get all books from the database
-    // getBooks: function () {
-    //     return axios.get("/api/post")
-    // },
-
-    // deleteBook: function (id) {
-    //     return axios.delete("/api/post/" + id)
-    // }
-
 
 };
