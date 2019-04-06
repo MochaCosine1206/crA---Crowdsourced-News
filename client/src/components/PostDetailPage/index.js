@@ -2,9 +2,9 @@ import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import API from "../../utils/API";
 import "./style.css";
-import { Link } from "react-router-dom";
-import {Input, FormBtn} from "../PostForm";
-import { Row, Container, Col } from "../Grid";
+// import { Link } from "react-router-dom";
+// import {Input, FormBtn} from "../PostForm";
+import { Container } from "../Grid";
 import CardSinglePostContainer from "../CardSinglePostContainer";
 
 

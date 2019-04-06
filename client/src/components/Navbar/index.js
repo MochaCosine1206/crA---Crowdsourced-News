@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "./style.css";
+import LogOutButton from "../LogOutButton"
 
 // Depending on the current path, this component sets the "active" class on the appropriate navigation link item
 function Navbar() {
@@ -30,6 +31,9 @@ function Navbar() {
               >
                 Your Profile
               </Link>
+            </li>
+            <li>
+            <LogOutButton />
             </li>
           </ul>
         </div>

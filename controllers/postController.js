@@ -182,4 +182,9 @@ getLogo(req.body.articleSubmition)
       .catch(err => res.status(422).json(err));
   },
 
+  user: function (req, res) {
+    console.log("This is the user: " + req.user)
+    res.json(req.user)
+  }
+
 };

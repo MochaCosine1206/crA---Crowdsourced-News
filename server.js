@@ -1,7 +1,11 @@
 const express = require("express");
-
+// const cors = require("cors")
+const passportSetup = require('./config/passport-setup');
+const passport = require('passport');
+const cookieSession = require("cookie-session");
 const mongoose = require("mongoose");
 const routes = require("./routes");
+const keys = require("./config/keys")
 const app = express();
 const PORT = process.env.PORT || 3001;
 
@@ -9,10 +13,28 @@ const PORT = process.env.PORT || 3001;
 // Define middleware here
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+
+
 // Serve up static assets (usually on heroku)
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
 }
+
+app.use(cookieSession({
+  maxAge: 24 * 60 * 60 * 1000,
+  keys: [keys.session.cookieKey]
+}))
+
+//initialize passport
+app.use(passport.initialize());
+app.use(passport.session());
+
+// app.use(cors(
+//   {origin:"http://localhost:3000",
+//       credentials:true,
+//       allowHeaders:"Content-Type"
+//   }
+//   ));
 
 // Define API routes here
 app.use(routes);

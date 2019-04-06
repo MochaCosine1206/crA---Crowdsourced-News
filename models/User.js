@@ -2,15 +2,15 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
-  email: { type: String, required: true, match: [/.+@.+\..+/, "Please enter a valid e-mail address"] },
-  password: { type: String, trim: true, required: "Password is Required", validate: [(input) => { return input.length >=6;},"passowrd should be longer"] },
-  firstName: { type: String, trim: true, required: "first name is required" },
-  lastName: { type: String, trim: true, required: "last name is required" },
-  userName: { type: String, trim: true, required: "Username is Required" },
+  email: String,
+  googleId: String,
+  firstName: String,
+  lastName: String,
+  userName: String,
   birthDay: Date,
   address: String,
-  phone: {type: String, validate: {validator: v => {return /\d{3}-\d{3}-\d{4}/.test(v);},message: props => `${props.value} is not a valid phone number!`},required: [true, 'User phone number required']},
-  image: { type: String, required: true },
+  phone: {type: String, validate: {validator: v => {return /\d{3}-\d{3}-\d{4}/.test(v);},message: props => `${props.value} is not a valid phone number!`}},
+  picture: String,
   psersonality: [String],
   interests: [String],
   fiveHated: [String],

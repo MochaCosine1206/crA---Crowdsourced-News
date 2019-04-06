@@ -10,11 +10,13 @@ import CardPostContainer from "../CardPostContainer";
 class PostPage extends Component {
     state = {
         posts: [],
-        post: ""
+        post: "",
+        user: ""
     };
 
     componentDidMount() {
         this.getPosts();
+        this.getUser();
     }
 
     getPosts = () => {
@@ -23,6 +25,19 @@ class PostPage extends Component {
             this.setState({posts: res.data});
             console.log(this.state.posts)
         }).catch(err => console.log(err));
+    }
+
+    getUser = () => {
+        API.getLoggedInUser()
+        .then(res => {
+            console.log(res.data)
+            if (!res.data) {
+                this.props.history.push("/")
+            } else {
+                this.setState({user: res.data.fullName})
+            }
+            
+        })
     }
 
     handleInputChange = event => {
@@ -51,7 +66,7 @@ render() {
         <div>
         <div className="jumbotron jumbotron-fluid">
         <Container>
-        <h1 className="display-5">Post Here</h1>
+        <h1 className="display-5">Post Here {this.state.user}</h1>
         
         <Row>
             <Col size="xs-9 sm-10">

@@ -4,7 +4,7 @@ import { Row, Container, Col } from "../Grid";
 import PostHeader from "../PostHeader"
 import PostImage from "../PostImage"
 import PostTitle from "../PostTitle"
-import PostFullText from "../PostFullText"
+// import PostFullText from "../PostFullText"
 import PostDescription from "../PostDescription"
 import PostAuthor from "../PostAuthor"
 import PostQuote from "../PostQuote"
