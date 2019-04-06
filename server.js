@@ -22,7 +22,8 @@ if (process.env.NODE_ENV === "production") {
 
 app.use(cookieSession({
   maxAge: 24 * 60 * 60 * 1000,
-  keys: [keys.session.cookieKey]
+  keys: [process.env.session.cookieKey]
+  // keys: [keys.session.cookieKey]
 }))
 
 //initialize passport
