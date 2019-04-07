@@ -152,7 +152,7 @@ getLogo(req.body.articleSubmition)
   findAll: function (req, res) {
     db.Posts
       .find(req.query)
-      .sort({ date: -1 })
+      .sort({ createDate: -1 })
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },

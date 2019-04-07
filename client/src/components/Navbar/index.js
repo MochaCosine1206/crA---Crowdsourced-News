@@ -4,7 +4,7 @@ import "./style.css";
 import LogOutButton from "../LogOutButton"
 
 // Depending on the current path, this component sets the "active" class on the appropriate navigation link item
-function Navbar() {
+function Navbar(props) {
     return (
       <nav className="navbar navbar-expand-lg navbar-dark">
         <Link className="navbar-brand" to="/">
@@ -32,11 +32,11 @@ function Navbar() {
                 Your Profile
               </Link>
             </li>
-            <li>
-            <LogOutButton />
-            </li>
           </ul>
+          
         </div>
+        <img className="rounded-circle" src={props.userImage} alt="..." />
+        <LogOutButton className="float-right"/>
       </nav>
     );
   }

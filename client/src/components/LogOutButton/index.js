@@ -20,9 +20,9 @@ class LogOutButton extends Component {
 
     render() {
         return (
-            <div>
+            <div id="buttonDiv">
                 <Container>
-                    <button onClick={this.logOut} className="button">
+                    <button onClick={this.logOut} className="btn btn-light rounded-pill">
                     {/* <a href="http://localhost3001/auth/logout" className="button"> */}
                         LogOut
                     {/* </a> */}

@@ -19,7 +19,8 @@ router.get('/google/callback', passport.authenticate('google'), (req, res) => {
     if (!req.user) {
         res.redirect("/")
     } else {
-        res.redirect("/post")
+        res.redirect("http://localhost:3000/post")
+        // res.redirect("/post")
     }
 
 })

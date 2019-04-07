@@ -2,6 +2,12 @@ const db = require("../models");
 
 // Defining methods for the booksController
 module.exports = {
+
+  user: function (req, res) {
+    console.log("This is the user: " + req.user)
+    res.json(req.user)
+  },
+  
   findAll: function(req, res) {
     db.User
       .find(req.query)

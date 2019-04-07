@@ -7,6 +7,10 @@ router.route("/")
   .get(userController.findAll)
   .post(userController.create);
 
+  router.route("/loggedinuser")
+  .post(userController.user)
+  .get(userController.user)
+
   router.route("/:id")
   .get(userController.findById)
   .put(userController.update)

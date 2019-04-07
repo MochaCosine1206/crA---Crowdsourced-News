@@ -22,7 +22,7 @@ class PostPage extends Component {
     getPosts = () => {
         API.getPosts()
         .then(res => {
-            this.setState({posts: res.data});
+            this.setState({posts: res.data, post: ""});
             console.log(this.state.posts)
         }).catch(err => console.log(err));
     }

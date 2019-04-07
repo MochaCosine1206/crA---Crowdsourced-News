@@ -7,7 +7,7 @@ export default {
     },
 
     getLoggedInUser: function() {
-        return axios.get("api/post/user/")
+        return axios.get("api/user/loggedinuser")
     },
 
     getPosts: function () {
