@@ -26,7 +26,7 @@ class PostDetailPage extends Component {
             <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" alt="..." />
             <span className="button-label">Sign in with Google</span>
           </div>
-          </button>
+          {/* </button> */}
         </a>
       </div>
     );
