@@ -19,15 +19,15 @@ class PostDetailPage extends Component {
   render() {
     return (
       <div>
-        <a href="http://localhost:3001/auth/google" className="button rounded-pill text-center">
-          {/* <button onClick={this.getGoogleAuth} className="button"> */}
+        {/* <a href="http://localhost:3001/auth/google" className="button rounded-pill text-center"> */}
+          <button onClick={this.getGoogleAuth} className="button">
 
           <div >
             <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" alt="..." />
             <span className="button-label">Sign in with Google</span>
           </div>
-          {/* </button> */}
-        </a>
+          </button>
+        {/* </a> */}
       </div>
     );
   }
