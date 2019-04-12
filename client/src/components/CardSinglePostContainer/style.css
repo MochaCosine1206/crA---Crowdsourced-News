@@ -1,0 +1,20 @@
+#postJumbo {
+height:70vh;
+width: 100%;
+}
+
+#contentContainer {
+    padding: 5px 15vw;
+}
+#paletteLine {
+    height: 3px;
+    width: 100%;
+    margin-left: 20px;
+    margin-bottom: 15px;
+    margin-top: 15px;
+}
+
+svg {
+    height: 100px;
+    fill: black;
+}

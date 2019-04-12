@@ -2,15 +2,8 @@ const path = require("path");
 const router = require("express").Router();
 const apiRoutes = require("./api");
 const authRoutes = require("./auth");
-// const cors = require("cors");
 
-// var corsOption = {
-//   origin: true,
-//   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-//   credentials: true,
-//   exposedHeaders: ['x-auth-token']
-// };
-// router.use(cors(corsOption));
+
 // API Routes
 router.use("/api", apiRoutes);
 router.use("/auth", authRoutes);

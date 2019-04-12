@@ -1,3 +1,7 @@
 .display-linebreak {
     white-space: pre-line;
+    background-color: white;
+    padding: 15px;
+    margin-left: 10px;
+    border-radius: 5px;
   }

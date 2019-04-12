@@ -1,50 +1,71 @@
 import React from "react";
 import "./style.css";
 import { Row, Container, Col } from "../Grid";
-import PostHeader from "../PostHeader"
 import PostImage from "../PostImage"
 import PostTitle from "../PostTitle"
-// import PostFullText from "../PostFullText"
 import PostDescription from "../PostDescription"
-import PostAuthor from "../PostAuthor"
 import PostQuote from "../PostQuote"
+import SentimentBadge from "../SentimentBadge"
+import Palette from "react-palette"
 
 
 
 export function CardPostContainer(props) {
+     
+    let siteName;
+    let descriptionDiv;
+    if (props.site) {
+        siteName = props.site
+    } else {
+        siteName = props.siteName
+    }
+
+    if (props.description) {
+        descriptionDiv = <PostDescription description={props.description} />
+    }
+
+    let logoPic;
+    if (props.altLogo) {
+        logoPic = <div className="row"><img id="logo" src={props.altLogo} alt="..." />{"       "}<p id="headerText">{siteName}</p></div>
+    } else if (props.logo) {
+        logoPic = <span dangerouslySetInnerHTML={{ __html: props.logo }}></span>
+    } 
+
+    
+
     return (
+        <div>
         <Container>
-        <div 
-        className="shadow-sm p-3 mb-5 bg-white rounded border"
-        onClick={ e => props.postDetail(props.id)}
-        >
-        <PostHeader 
-        logo={props.logo} 
-        site={props.site} 
-        altLogo={props.altLogo}
-        />
-        <Container>
-            <Row>
-                <PostTitle title={props.title}/>
-            </Row>
-            <Row>
-                <PostAuthor author={props.author} />
-            </Row>
-            <Row>
-                <Col size="md-4">
-                <PostImage image={props.image}/>
-                </Col>
-                <Col size="md-8">
-                {/* <PostFullText text={props.text} /> */}
-                <PostDescription description={props.description} />
-                <PostQuote quotes={props.quotes} />
-                </Col>
-            </Row>
-            
-            </Container>
-            
-        </div>
+            <Palette image={props.image}>
+                {palette => (
+                    <div
+                        className="shadow p-3 mb-5 rounded border"
+                        style={{ backgroundColor: palette.vibrant }}
+                        onClick={e => props.postDetail(props.id)}
+                    >
+                        <PostImage image={props.image} />
+                        <div id="cardText">
+                        <Row>
+                        {logoPic}
+                        <SentimentBadge sentimentScore={props.sentimentScore} avgSentiment={props.avgSentiment} />
+                        </Row>
+                            <Row>
+                                <PostTitle title={props.title} />
+                                
+                            </Row>
+                            <Row>
+                                    {descriptionDiv}
+                                    <PostQuote quotes={props.quotes} />
+                            </Row>
+                            </div>
+                    </div>
+                )}
+
+
+            </Palette>
+
         </Container>
+        </div>
     );
 }
 

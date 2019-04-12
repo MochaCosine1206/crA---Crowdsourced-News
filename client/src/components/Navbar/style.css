@@ -1,4 +1,10 @@
 .navbar {
     margin-bottom: 0;
-    background-color: indigo;
+    background-color: white;
+  }
+
+  #navBrand {
+    font-family: ivymode, sans-serif;
+    font-size: 45px;
+    color: black;
   }

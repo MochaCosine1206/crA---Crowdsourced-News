@@ -4,6 +4,8 @@
 
 #HeaderText {
     font-size: 28px;
+    padding: 5px;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 }
 
 svg {

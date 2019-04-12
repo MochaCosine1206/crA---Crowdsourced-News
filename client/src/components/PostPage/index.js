@@ -97,6 +97,7 @@ render() {
             id={post._id}
             title={post.title}
             site={post.publisher}
+            siteName={post.siteName}
             favicon={post.favicon}
             publishedDate={post.publishedDate}
             siteUrl={post.url}

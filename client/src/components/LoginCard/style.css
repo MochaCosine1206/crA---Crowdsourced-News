@@ -1,5 +1,27 @@
 #LoginCard{
-    margin-top: 20%;
+    margin-top: 10%;
+    margin-bottom: 20%;
     width: 100%;
-    height: 75%;
+    height: 75vh;
+    border-radius: 15px;
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    background-color: white;
+}
+
+#loginHeader{
+    margin-left: 15px;
+    margin-bottom: 20px;
+    font-family: ivymode, sans-serif;
+    font-size: 80px;
+}
+
+
+
+#loginBackground {
+    background-image: url('https://img.itch.zone/aW1hZ2UvMjUyNTQ3LzEyMzAwMzcuanBn/original/R%2FVkiz.jpg');
+    background-position: auto;
+    background-size: cover;
+    background-color: black;
+    height: 100vh
 }

@@ -40,6 +40,9 @@ getLogo(req.body.articleSubmition)
       //use unfluff
       axios.get(url)
         .then(function (response) {
+
+
+
           let unfluffData = extractor(response.data);
           console.log("unfluff data: " + JSON.stringify(unfluffData));
           console.log("--------------------------------------/n");
@@ -75,10 +78,7 @@ getLogo(req.body.articleSubmition)
 
           textQuotes = quoteParser.parse(text, 'en', { minLength: 10 });
           console.log("quotes: " + textQuotes)
-
-
-
-
+            
 
           let sentimentScore = sw(text);
           // console.log("Sentiment Data: " + JSON.stringify(sentiment));
@@ -137,6 +137,7 @@ getLogo(req.body.articleSubmition)
           result.quotes = textQuotes;
           result.logo = logo;
           result.altLogo = altLogo;
+
 
           console.log(result);
           db.Posts.create(result)

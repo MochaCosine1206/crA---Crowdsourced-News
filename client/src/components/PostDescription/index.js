@@ -4,8 +4,8 @@ import "./style.css";
 
 export function PostDescription(props) {
     return (
-        <div id="PostDescription" className="shadow p-1">
-            <p>{props.description}</p>
+        <div id="PostDescription">
+            <p className="font-italic text-muted">{props.description}</p>
         </div>
 
     );

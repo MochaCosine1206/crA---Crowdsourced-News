@@ -1,0 +1,19 @@
+svg {
+    fill: black;
+}
+
+#cardText {
+    padding: 10px;
+}
+
+#headerText {
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-right: 25px;
+    font-size: 36px;
+}
+
+#logo {
+    margin-left: 30px;
+    border-radius: 5px;
+}

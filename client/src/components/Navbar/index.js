@@ -6,17 +6,17 @@ import LogOutButton from "../LogOutButton"
 // Depending on the current path, this component sets the "active" class on the appropriate navigation link item
 function Navbar(props) {
     return (
-      <nav className="navbar navbar-expand-lg navbar-dark">
-        <Link className="navbar-brand" to="/">
-          crA - Crowdsourced News
+      <nav className="navbar navbar-expand-lg navbar-light">
+        <Link id="navBrand" className="navbar-brand" to="/">
+          crA crA - Crowdsourced News
         </Link>
         <div>
           <ul className="navbar-nav">
             <li className="nav-item">
               <Link
-                to="/"
+                to="/post"
                 className={
-                  window.location.pathname === "/" || window.location.pathname === "/home"
+                  window.location.pathname === "/" || window.location.pathname === "/post"
                     ? "nav-link active"
                     : "nav-link"
                 }

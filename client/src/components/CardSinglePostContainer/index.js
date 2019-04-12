@@ -1,51 +1,152 @@
-import React from "react";
+import React, { Component } from "react";
 import "./style.css";
 import { Row, Container, Col } from "../Grid";
 import PostHeader from "../PostHeader"
 import PostImage from "../PostImage"
 import PostTitle from "../PostTitle"
 import PostFullText from "../PostFullText"
-// import PostDescription from "../PostDescription"
 import PostAuthor from "../PostAuthor"
-// import PostQuote from "../PostQuote"
+// import CommentContainer from "../CommentContainer"
+import API from "../../utils/API";
+import { Input, FormBtn } from "../PostForm";
+import { List, ListItem } from "../List";
+import Palette from "react-palette"
+
+
+class CardSinglePostContainer extends Component {
+
+
+    state = {
+        comment: "",
+        post: "",
+        user: "",
+        comments: [],
+        backgroundPosition: "",
+    }
+
+
+    componentDidMount() {
+        this.setState({ user: this.props.user._id, post: this.props.id })
+        this.getComments(this.props.id)
+    }
 
 
 
-export function CardSinglePostContainer(props) {
-    return (
-        <Container>
-        <div 
-        className="shadow-sm p-3 mb-5 bg-white rounded border"
-        onClick={ e => props.postDetail(props.id)}
-        >
-        <PostHeader 
-        logo={props.logo} 
-        site={props.site} 
-        altLogo={props.altLogo}
-        />
-        <Container>
-            <Row>
-                <PostTitle title={props.title}/>
-            </Row>
-            <Row>
-                <PostAuthor author={props.author} />
-            </Row>
-            <Row>
-                <Col size="md-4">
-                <PostImage image={props.image}/>
-                </Col>
-                <Col size="md-8">
-                <PostFullText text={props.text} />
-                {/* <PostDescription description={props.description} /> */}
-                {/* <PostQuote quotes={props.quotes} /> */}
-                </Col>
-            </Row>
-            
-            </Container>
-            
-        </div>
-        </Container>
-    );
+    getComments = postId => {
+        API.getPostComments(postId)
+            .then(res => {
+                this.setState({ comments: res.data })
+            })
+    }
+
+    handleInputChange = event => {
+        const { name, value } = event.target;
+        this.setState({
+            [name]: value
+        });
+    };
+
+    handleFormSubmit = event => {
+        event.preventDefault();
+
+        API.submitComment({ text: this.state.comment, user: this.state.user, post: this.state.post }).then(res => {
+            this.setState({ comment: "" })
+            this.getComments(this.props.id)
+        })
+    };
+
+    render(props) {
+        return (
+            <div>
+                <div
+                    id="postJumbo"
+                    className="jumbotron jumbotron-fluid"
+                    style={{ backgroundAttachment: "fixed", backgroundImage: `url(${this.props.image})`, backgroundSize: "cover" }}
+                >
+                    <PostHeader
+                        logo={this.props.logo}
+                        site={this.props.site}
+                        altLogo={this.props.altLogo}
+                    />
+                </div>
+                <Row>
+                    <div id="contentContainer">
+                        <Row>
+                            <span dangerouslySetInnerHTML={{ __html: this.props.logo }}></span>
+                        </Row>
+                        <Row>
+                            <PostTitle title={this.props.title} />
+                        </Row>
+                        <Row>
+                            <PostAuthor author={this.props.author} />
+                        </Row>
+                        <Row>
+                            <Palette image={this.props.image}>
+                                {palette => (
+                                    <div
+                                        id="paletteLine"
+                                        style={{ backgroundColor: palette.vibrant }}
+                                    >
+
+                                    </div>
+                                )}
+
+                            </Palette>
+                        </Row>
+                        <Row>
+                            <PostFullText text={this.props.text} />
+                        </Row>
+                        <Row>
+                            <Palette image={this.props.image}>
+                                {palette => (
+                                    <div
+                                        id="paletteLine"
+                                        style={{ backgroundColor: palette.vibrant }}
+                                    >
+
+                                    </div>
+                                )}
+
+                            </Palette>
+                        </Row>
+                        <p>Comments Go Here</p>
+                        <Row>
+                            <Col size="xs-9 sm-10">
+                                <Input
+                                    type="text"
+                                    value={this.state.comment}
+                                    onChange={this.handleInputChange}
+                                    name="comment"
+                                    placeholder="Post article URL here (required)"
+                                />
+                            </Col>
+                            <Col size="xs-3 sm-2">
+                                <FormBtn
+                                    disabled={!this.state.comment}
+                                    onClick={this.handleFormSubmit}
+                                >
+                                    Post
+                                </FormBtn>
+                            </Col>
+                        </Row>
+                        <List>
+                            {this.state.comments.map(comment => (
+                                <ListItem
+                                    key={comment._id}
+                                    text={comment.text}
+                                    user_record={comment.user_records}
+                                    sentiment={comment.comparative}
+                                >
+                                </ListItem>
+                            ))}
+                        </List>
+                    </div>
+                </Row>
+
+            </div>
+        );
+    }
+
 }
 
 
