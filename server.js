@@ -11,7 +11,7 @@ const PORT = process.env.PORT || 3001;
 
 app.get('*', function(req, res) {  
   res.redirect('https://' + req.headers.host + req.url);
-
+})
 
 // Define middleware here
 app.use(express.urlencoded({ extended: true }));
