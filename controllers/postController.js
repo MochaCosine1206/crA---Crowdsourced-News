@@ -1,6 +1,5 @@
 const db = require("../models");
 const axios = require("axios")
-// const ogs = require('open-graph-scraper')
 const extractor = require('unfluff')
 const sw = require('sentiword');
 const nlp = require('compromise');
