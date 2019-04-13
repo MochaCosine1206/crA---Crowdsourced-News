@@ -10,7 +10,7 @@ const app = express();
 const PORT = process.env.PORT || 3001;
 
 //Using this to enable callback on heroku
-app.enable('trust proxy')
+app.enable('trust proxy', 'loopback')
 
 
 // Define middleware here
