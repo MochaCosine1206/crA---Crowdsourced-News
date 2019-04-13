@@ -21,7 +21,7 @@ passport.use(
         clientID: process.env.GOOGLE_clientID,
         // clientSecret: keys.google.clientSecret,
         clientSecret: process.env.GOOGLE_clientSecret,
-        callbackURL: '/auth/google/callback',
+        callbackURL: 'https://localhost:3001/auth/google/callback',
     }, (accessToken, refreshToken, profile, done) => {
         //passport callback function
         //check if user already exists
