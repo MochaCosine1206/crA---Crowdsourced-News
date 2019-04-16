@@ -6,6 +6,15 @@ router.route("/submitArticle")
   .post(postController.submitArticle)
   .get(postController.submitArticle)
 
+router.route("/topics")
+  .get(postController.getTopics)
+
+router.route("/people")
+  .get(postController.getPeople)
+
+router.route("/places")
+  .get(postController.getPlaces)
+
 
 // Matches with "/api/post"
 router.route("/")

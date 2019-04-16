@@ -7,11 +7,13 @@ import LogOutButton from "../LogOutButton"
 function Navbar(props) {
     return (
       <nav className="navbar navbar-expand-lg navbar-light">
+      <div className="mr-auto order-0">
         <Link id="navBrand" className="navbar-brand" to="/">
           crA crA - Crowdsourced News
         </Link>
-        <div>
-          <ul className="navbar-nav">
+        </div>
+        <div className="order-1">
+          <ul className="navbar-nav mx-auto">
             <li className="nav-item">
               <Link
                 to="/post"
@@ -35,8 +37,10 @@ function Navbar(props) {
           </ul>
           
         </div>
+        <div className="order-3 ml-1">
         <img className="rounded-circle" src={props.userImage} alt="..." />
         <LogOutButton className="float-right"/>
+        </div>
       </nav>
     );
   }

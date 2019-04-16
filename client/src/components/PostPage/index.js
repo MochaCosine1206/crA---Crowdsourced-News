@@ -3,6 +3,7 @@ import { withRouter } from "react-router-dom";
 import API from "../../utils/API";
 import "./style.css";
 import {Input, FormBtn} from "../PostForm";
+import TopicsCard from "../TopicsCard"
 import { Row, Container, Col } from "../Grid";
 import CardPostContainer from "../CardPostContainer";
 
@@ -11,12 +12,19 @@ class PostPage extends Component {
     state = {
         posts: [],
         post: "",
-        user: ""
+        user: "",
+        topics: [],
+        places: [],
+        people: [],
+        topic: "",
     };
 
     componentDidMount() {
         this.getPosts();
         this.getUser();
+        this.getTopics();
+        this.getPeople();
+        this.getPlaces();
     }
 
     getPosts = () => {
@@ -40,6 +48,33 @@ class PostPage extends Component {
         })
     }
 
+    getTopics = () => {
+        API.getTopics()
+            .then(res => {
+                console.log(res.data)
+                this.setState({ topics: res.data })
+
+            })
+    }
+
+    getPlaces = () => {
+        API.getPlaces()
+            .then(res => {
+                console.log(res.data)
+                this.setState({ places: res.data })
+
+            })
+    }
+
+    getPeople = () => {
+        API.getPeople()
+            .then(res => {
+                console.log(res.data)
+                this.setState({ people: res.data })
+
+            })
+    }
+
     handleInputChange = event => {
         const { name, value } = event.target;
         this.setState({
@@ -61,12 +96,16 @@ class PostPage extends Component {
         this.props.history.push("/post/" + id)
     }
 
+    filterTopics = (topic) => {
+        console.log(topic);
+    }
+
 render() {
     return (
         <div>
         <div className="jumbotron jumbotron-fluid">
         <Container>
-        <h1 className="display-5">Post Here {this.state.user}</h1>
+        {/* <h1 className="display-5">Post Here {this.state.user}</h1> */}
         
         <Row>
             <Col size="xs-9 sm-10">
@@ -85,12 +124,61 @@ render() {
         >
             Post
         </FormBtn>
+        <button className="btn btn-outline-secondary" data-toggle="collapse" data-target="#topics">Topics</button>
+
+        
    
         </Col>
         </Row>
         </Container>
-        
+        <div id="topics" class="collapse">
+        <div className="container">
+                    <div className="row">
+                        <div className="col-xs-12 col-md-4">
+                            <h5>Top Topics</h5>
+                            <ol>
+                                {this.state.topics.map(topic => (
+                                    <TopicsCard
+                                        key={topic._id}
+                                        id={topic._id}
+                                        topic={topic._id}
+                                        filterTopics={this.filterTopics}
+                                    >
+                                    </TopicsCard>
+                                ))}
+                            </ol>
+                        </div>
+                        <div className="col-xs-12 col-md-4">
+                            <h5>Top People</h5>
+                            <ol>
+                                {this.state.people.map(person => (
+                                    <TopicsCard
+                                        key={person._id}
+                                        id={person._id}
+                                        topic={person._id}
+                                    >
+                                    </TopicsCard>
+                                ))}
+                            </ol>
+                        </div>
+                        <div className="col-xs-12 col-md-4">
+                            <h5>Top Places</h5>
+                            <ol>
+                                {this.state.places.map(place => (
+                                    <TopicsCard
+                                        key={place._id}
+                                        id={place._id}
+                                        topic={place._id}
+                                    >
+                                    </TopicsCard>
+                                ))}
+                            </ol>
+                        </div>
+                    </div>
+                </div>
         </div>
+        </div>
+        
         {this.state.posts.map(post => (
             <CardPostContainer
             key={post._id}

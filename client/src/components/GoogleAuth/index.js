@@ -19,7 +19,7 @@ class PostDetailPage extends Component {
   render() {
     return (
       <div>
-        <a href="/auth/google" className="button rounded-pill text-center">
+        <a href="http://localhost:3001/auth/google" className="button rounded-pill text-center">
           {/* <button onClick={this.getGoogleAuth} className="button"> */}
 
           <div >

@@ -32,6 +32,7 @@
     "quote-parser": "^0.1.6",
     "sentiment": "^5.0.1",
     "sentiword": "0.0.1",
+    "socket.io": "^2.2.0",
     "unfluff": "^3.2.0",
     "website-logo": "^1.1.1"
   }

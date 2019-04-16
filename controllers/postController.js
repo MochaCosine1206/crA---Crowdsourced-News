@@ -27,12 +27,12 @@ module.exports = {
         const logoExtract = decodeURI(images.logo)
         const logo = logoExtract.split(/,(.+)/)[1]
         const altLogo = images.openGraph
-        
+
 
         getSiteData(url, logo, altLogo, myURL.hostname)
       })
     }
-getLogo(req.body.articleSubmition)
+    getLogo(req.body.articleSubmition)
 
 
     getSiteData = (url, logo, altLogo, hostSite) => {
@@ -77,7 +77,7 @@ getLogo(req.body.articleSubmition)
 
           textQuotes = quoteParser.parse(text, 'en', { minLength: 10 });
           console.log("quotes: " + textQuotes)
-            
+
 
           let sentimentScore = sw(text);
           // console.log("Sentiment Data: " + JSON.stringify(sentiment));
@@ -95,20 +95,40 @@ getLogo(req.body.articleSubmition)
 
 
 
-          let doc = nlp(text).topics().out('topk')
-          let compromiseArr = [];
-          console.log("compromise output: " + JSON.stringify(doc))
+          let topics = nlp(text).topics().out('topk')
+          let people = nlp(text).people().out('topk')
+          let places = nlp(text).places().out('topk')
+          let orgs = nlp(text).organizations().out('topk')
+          let compromiseTopicsArr = [];
+          let compromisePeopleArr = [];
+          let compromisePlacesArr = [];
+          let compromiseOrgArr = [];
+          console.log("compromise topics: " + JSON.stringify(topics))
+          console.log("compromise people: " + JSON.stringify(people))
+          console.log("compromise places: " + JSON.stringify(places))
           console.log("--------------------------------------/n");
 
-          for (let i = 0; i < doc.length; i++) {
-            compromiseArr.push(doc[i].normal);
-            console.log("array: " + compromiseArr)
+          for (let i = 0; i < topics.length; i++) {
+            compromiseTopicsArr.push(topics[i].normal);
+            console.log("array: " + compromiseTopicsArr)
+          }
+          for (let i = 0; i < people.length; i++) {
+            compromisePeopleArr.push(people[i].normal);
+            console.log("array: " + compromisePeopleArr)
+          }
+          for (let i = 0; i < places.length; i++) {
+            compromisePlacesArr.push(places[i].normal);
+            console.log("array: " + compromisePlacesArr)
+          }
+          for (let i = 0; i < orgs.length; i++) {
+            compromiseOrgArr.push(orgs[i].normal);
+            console.log("array: " + compromiseOrgArr)
           }
 
           let result = {};
           result.siteName = hostSite;
 
-          if (unfluffData.title.includes("Are you a robot?")){
+          if (unfluffData.title.includes("Are you a robot?")) {
             result.title = "";
           } else {
             result.title = unfluffData.title;
@@ -132,7 +152,10 @@ getLogo(req.body.articleSubmition)
           result.objectiveScore = sentimentScore.objective;
           result.positiveScore = sentimentScore.positive;
           result.negativeScore = sentimentScore.negative;
-          result.compromiseKeywords = compromiseArr;
+          result.compromiseTopics = compromiseTopicsArr;
+          result.compromisePeople = compromisePeopleArr;
+          result.compromisePlaces = compromisePlacesArr;
+          result.compromiseOrganizations = compromiseOrgArr;
           result.quotes = textQuotes;
           result.logo = logo;
           result.altLogo = altLogo;
@@ -146,7 +169,44 @@ getLogo(req.body.articleSubmition)
         })
 
     }
-    },
+  },
+
+  getTopics: function (req, res) {
+    db.Posts.aggregate([
+      {
+        $unwind: "$compromiseTopics"
+      }, 
+      {
+        $sortByCount: "$compromiseTopics"
+      }
+    ]).limit(10)
+      .then(dbModel => res.json(dbModel))
+      .catch(err => res.status(422).json(err));
+  },
+  getPeople: function (req, res) {
+    db.Posts.aggregate([
+      {
+        $unwind: "$compromisePeople"
+      }, 
+      {
+        $sortByCount: "$compromisePeople"
+      }
+    ]).limit(10)
+      .then(dbModel => res.json(dbModel))
+      .catch(err => res.status(422).json(err));
+  },
+  getPlaces: function (req, res) {
+    db.Posts.aggregate([
+      {
+        $unwind: "$compromisePlaces"
+      }, 
+      {
+        $sortByCount: "$compromisePlaces"
+      }
+    ]).limit(10)
+      .then(dbModel => res.json(dbModel))
+      .catch(err => res.status(422).json(err));
+  },
 
 
   findAll: function (req, res) {

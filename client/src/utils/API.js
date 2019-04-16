@@ -14,6 +14,18 @@ export default {
         return axios.get("/api/post");
     },
 
+    getTopics: function () {
+        return axios.get("/api/post/topics");
+    },
+
+    getPeople: function () {
+        return axios.get("/api/post/people");
+    },
+
+    getPlaces: function () {
+        return axios.get("/api/post/places");
+    },
+
     getPost: function (id) {
         return axios.get("/api/post/" + id);
     },
