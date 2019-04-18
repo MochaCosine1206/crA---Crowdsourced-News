@@ -18,7 +18,7 @@ function Navbar(props) {
               <Link
                 to="/post"
                 className={
-                  window.location.pathname === "/" || window.location.pathname === "/post"
+                  window.location.pathname === "/" || window.location.pathname === "/post/all"
                     ? "nav-link active"
                     : "nav-link"
                 }
