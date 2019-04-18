@@ -1,6 +1,6 @@
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20');
-const keys = require("./keys")
+// const keys = require("./keys")
 const User = require("../models/User");
 
 passport.serializeUser((user, done) => {
@@ -17,12 +17,11 @@ passport.deserializeUser((id, done) => {
 passport.use(
     new GoogleStrategy({
         //options for strategy
-        clientID: keys.google.clientID,
-        // clientID: process.env.GOOGLE_clientID,
-        clientSecret: keys.google.clientSecret,
-        // clientSecret: process.env.GOOGLE_clientSecret,
+        // clientID: keys.google.clientID,
+        clientID: process.env.GOOGLE_clientID,
+        // clientSecret: keys.google.clientSecret,
+        clientSecret: process.env.GOOGLE_clientSecret,
         callbackURL: '/auth/google/callback',
-        // callbackURL: 'https://cra-crowdsourced-news.herokuapp.com/auth/google/callback',
     }, (accessToken, refreshToken, profile, done) => {
         //passport callback function
         //check if user already exists
