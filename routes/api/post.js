@@ -15,6 +15,8 @@ router.route("/people")
 router.route("/places")
   .get(postController.getPlaces)
 
+router.route("/search/:search")
+  .get(postController.getFilteredPosts)
 
 // Matches with "/api/post"
 router.route("/")

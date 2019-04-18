@@ -1,6 +1,6 @@
 import React from "react";
 import "./style.css";
-import { Row, Container, Col } from "../Grid";
+import { Row, Container } from "../Grid";
 import PostImage from "../PostImage"
 import PostTitle from "../PostTitle"
 import PostDescription from "../PostDescription"

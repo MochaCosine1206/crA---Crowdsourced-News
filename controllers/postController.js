@@ -171,6 +171,14 @@ module.exports = {
     }
   },
 
+  getFilteredPosts: function (req, res) {
+    console.log("Inside Controller " + req.params.search)
+    db.Posts
+    .find({ $text: { $search: req.params.search}})
+    .then(dbModel => res.json(dbModel))
+    .catch(err => res.status(422).json(err));
+  },
+
   getTopics: function (req, res) {
     db.Posts.aggregate([
       {

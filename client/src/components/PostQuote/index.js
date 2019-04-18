@@ -4,7 +4,6 @@ import QuoteText from "../QuoteText"
 
 
 export function PostQuote(props) {
-    console.log(props.quotes)
     return (
         <div id="PostQuote">
         {props.quotes.map(quote => (

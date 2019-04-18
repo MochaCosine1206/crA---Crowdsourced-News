@@ -19,7 +19,7 @@ router.get('/google/callback', passport.authenticate('google'), (req, res) => {
     if (!req.user) {
         res.redirect("/")
     } else {
-        res.redirect("http://localhost:3000/post")
+        res.redirect("http://localhost:3000/post/all")
         // console.log("Right before post route")
         // res.redirect("/post")
     }

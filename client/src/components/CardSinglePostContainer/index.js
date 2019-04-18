@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import "./style.css";
-import { Row, Container, Col } from "../Grid";
+import { Row, Col } from "../Grid";
 import PostHeader from "../PostHeader"
-import PostImage from "../PostImage"
 import PostTitle from "../PostTitle"
 import PostFullText from "../PostFullText"
 import PostAuthor from "../PostAuthor"

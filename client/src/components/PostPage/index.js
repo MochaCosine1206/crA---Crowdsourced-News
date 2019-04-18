@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import API from "../../utils/API";
 import "./style.css";
-import {Input, FormBtn} from "../PostForm";
+import { Input, FormBtn } from "../PostForm";
 import TopicsCard from "../TopicsCard"
 import { Row, Container, Col } from "../Grid";
 import CardPostContainer from "../CardPostContainer";
@@ -16,42 +16,67 @@ class PostPage extends Component {
         topics: [],
         places: [],
         people: [],
-        topic: "",
+        topic: this.props.match.params.search,
     };
 
     componentDidMount() {
-        this.getPosts();
+        console.log("On Mount: " + this.state.topic)
+        this.setState({
+            topic: this.props.match.params.search
+        })
+        if (this.state.topic === "all") {
+            this.getPosts();
+        } else {
+            this.filterTopics(this.state.topic)
+        }
+
         this.getUser();
         this.getTopics();
         this.getPeople();
         this.getPlaces();
     }
 
+    componentWillReceiveProps(newProps){
+        this.setState({
+            topic: newProps.match.params.search
+        })
+        if (newProps.match.params.search === "all") {
+            this.getPosts()
+        } else {
+            console.log("Before Filtering")
+            this.getFilteredPosts(newProps.match.params.search)
+        }
+    }
+
     getPosts = () => {
         API.getPosts()
-        .then(res => {
-            this.setState({posts: res.data, post: ""});
-            console.log(this.state.posts)
-        }).catch(err => console.log(err));
+            .then(res => {
+                this.setState({ posts: res.data, post: "" });
+            }).catch(err => console.log(err));
+    }
+
+    getFilteredPosts = (keyword) => {
+        API.getFilteredPosts(keyword)
+            .then(res => {
+                this.setState({ posts: res.data })
+            })
     }
 
     getUser = () => {
         API.getLoggedInUser()
-        .then(res => {
-            console.log(res.data)
-            if (!res.data) {
-                this.props.history.push("/")
-            } else {
-                this.setState({user: res.data.fullName})
-            }
-            
-        })
+            .then(res => {
+                if (!res.data) {
+                    this.props.history.push("/")
+                } else {
+                    this.setState({ user: res.data.fullName })
+                }
+
+            })
     }
 
     getTopics = () => {
         API.getTopics()
             .then(res => {
-                console.log(res.data)
                 this.setState({ topics: res.data })
 
             })
@@ -60,7 +85,6 @@ class PostPage extends Component {
     getPlaces = () => {
         API.getPlaces()
             .then(res => {
-                console.log(res.data)
                 this.setState({ places: res.data })
 
             })
@@ -69,7 +93,6 @@ class PostPage extends Component {
     getPeople = () => {
         API.getPeople()
             .then(res => {
-                console.log(res.data)
                 this.setState({ people: res.data })
 
             })
@@ -84,134 +107,141 @@ class PostPage extends Component {
 
     handleFormSubmit = event => {
         event.preventDefault();
-        console.log("Submitted URL: " + this.state.post)
         API.submitArticle(this.state.post).then(res => {
-            console.log("From submitted post: " + res.data)
             this.getPosts();
+            this.getTopics();
+            this.getPeople();
+            this.getPlaces();
         })
     };
 
     postDetail = (id) => {
-        console.log(id);
-        this.props.history.push("/post/" + id)
+        this.props.history.push("/post/" + this.state.topic + "/" + id)
     }
 
-    filterTopics = (topic) => {
-        console.log(topic);
-    }
+    // filterTopics = (keyword) => {
+    //     console.log("The Keyword is: " + keyword)
+    //     this.setState({
+    //         topic: keyword
+    //     })
+    //     this.props.history.push("/post/" + keyword)
+    // }
 
-render() {
-    return (
-        <div>
-        <div className="jumbotron jumbotron-fluid">
-        <Container>
-        {/* <h1 className="display-5">Post Here {this.state.user}</h1> */}
-        
-        <Row>
-            <Col size="xs-9 sm-10">
-        <Input
-        type="text" 
-        value={this.state.post}
-        onChange={this.handleInputChange}
-        name="post"
-        placeholder="Post article URL here (required)"
-        />
-        </Col>
-        <Col size="xs-3 sm-2">
-        <FormBtn
-        disabled={!this.state.post}
-        onClick={this.handleFormSubmit}
-        >
-            Post
+    render() {
+        return (
+            <div>
+                <div className="jumbotron jumbotron-fluid">
+                    <Container>
+                        {/* <h1 className="display-5">Post Here {this.state.user}</h1> */}
+
+                        <Row>
+                            <Col size="xs-9 sm-10">
+                                <Input
+                                    type="text"
+                                    value={this.state.post}
+                                    onChange={this.handleInputChange}
+                                    name="post"
+                                    placeholder="Post article URL here (required)"
+                                />
+                            </Col>
+                            <Col size="xs-3 sm-2">
+                                <FormBtn
+                                    disabled={!this.state.post}
+                                    onClick={this.handleFormSubmit}
+                                >
+                                    Post
         </FormBtn>
-        <button className="btn btn-outline-secondary" data-toggle="collapse" data-target="#topics">Topics</button>
+                                <button className="btn btn-outline-secondary" data-toggle="collapse" data-target="#topics">Topics</button>
 
-        
-   
-        </Col>
-        </Row>
-        </Container>
-        <div id="topics" class="collapse">
-        <div className="container">
-                    <div className="row">
-                        <div className="col-xs-12 col-md-4">
-                            <h5>Top Topics</h5>
-                            <ol>
-                                {this.state.topics.map(topic => (
-                                    <TopicsCard
-                                        key={topic._id}
-                                        id={topic._id}
-                                        topic={topic._id}
-                                        filterTopics={this.filterTopics}
-                                    >
-                                    </TopicsCard>
-                                ))}
-                            </ol>
-                        </div>
-                        <div className="col-xs-12 col-md-4">
-                            <h5>Top People</h5>
-                            <ol>
-                                {this.state.people.map(person => (
-                                    <TopicsCard
-                                        key={person._id}
-                                        id={person._id}
-                                        topic={person._id}
-                                    >
-                                    </TopicsCard>
-                                ))}
-                            </ol>
-                        </div>
-                        <div className="col-xs-12 col-md-4">
-                            <h5>Top Places</h5>
-                            <ol>
-                                {this.state.places.map(place => (
-                                    <TopicsCard
-                                        key={place._id}
-                                        id={place._id}
-                                        topic={place._id}
-                                    >
-                                    </TopicsCard>
-                                ))}
-                            </ol>
+
+
+                            </Col>
+                        </Row>
+                    </Container>
+                    <div id="topics" class="collapse">
+                        <div className="container">
+                            <div className="row">
+                                <div className="col-xs-12 col-md-4">
+                                    <h5>Top Topics</h5>
+                                    <ol>
+                                        {this.state.topics.map(topic => (
+                                            <TopicsCard
+                                                key={topic._id}
+                                                id={topic._id}
+                                                topic={topic._id}
+                                                // filterTopics={this.filterTopics}
+                                                
+                                            >
+                                            </TopicsCard>
+                                        ))}
+                                    </ol>
+                                </div>
+                                <div className="col-xs-12 col-md-4">
+                                    <h5>Top People</h5>
+                                    <ol>
+                                        {this.state.people.map(person => (
+                                            <TopicsCard
+                                                key={person._id}
+                                                id={person._id}
+                                                topic={person._id}
+                                                // filterTopics={this.filterTopics}
+                                            >
+                                            </TopicsCard>
+                                        ))}
+                                    </ol>
+                                </div>
+                                <div className="col-xs-12 col-md-4">
+                                    <h5>Top Places</h5>
+                                    <ol>
+                                        {this.state.places.map(place => (
+                                            <TopicsCard
+                                                key={place._id}
+                                                id={place._id}
+                                                topic={place._id}
+                                                // filterTopics={this.filterTopics}
+                                            >
+                                            </TopicsCard>
+                                        ))}
+                                    </ol>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-        </div>
-        </div>
-        
-        {this.state.posts.map(post => (
-            <CardPostContainer
-            key={post._id}
-            id={post._id}
-            title={post.title}
-            site={post.publisher}
-            siteName={post.siteName}
-            favicon={post.favicon}
-            publishedDate={post.publishedDate}
-            siteUrl={post.url}
-            author={post.author}
-            description={post.description}
-            image={post.image}
-            text={post.text}
-            keywords={post.keywords}
-            tags={post.tags}
-            backupKeywords={post.compromiseKeywords}
-            avgSentiment={post.avgSentiment}
-            sentimentScore={post.sentimentScore}
-            objectiveScore={post.objectiveScore}
-            negativeScore={post.negativeScore}
-            positiveScore={post.positiveScore}
-            logo={post.logo}
-            altLogo={post.altLogo}
-            quotes={post.quotes}
-            postDetail={this.postDetail}
-            >
-            </CardPostContainer>
-        ))}
-        
-        </div>
-    );
-}
+
+                {this.state.posts.map(post => (
+                    <CardPostContainer
+                        key={post._id}
+                        id={post._id}
+                        title={post.title}
+                        site={post.publisher}
+                        siteName={post.siteName}
+                        favicon={post.favicon}
+                        publishedDate={post.publishedDate}
+                        siteUrl={post.url}
+                        author={post.author}
+                        description={post.description}
+                        image={post.image}
+                        text={post.text}
+                        keywords={post.keywords}
+                        tags={post.tags}
+                        backupKeywords={post.compromiseKeywords}
+                        avgSentiment={post.avgSentiment}
+                        sentimentScore={post.sentimentScore}
+                        objectiveScore={post.objectiveScore}
+                        negativeScore={post.negativeScore}
+                        positiveScore={post.positiveScore}
+                        logo={post.logo}
+                        altLogo={post.altLogo}
+                        quotes={post.quotes}
+                        postDetail={this.postDetail}
+                    >
+                    </CardPostContainer>
+                ))}
+
+            </div>
+        );
+    }
 
 }
 

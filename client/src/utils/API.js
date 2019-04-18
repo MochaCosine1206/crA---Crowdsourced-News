@@ -14,6 +14,11 @@ export default {
         return axios.get("/api/post");
     },
 
+    getFilteredPosts: function (search) {
+        console.log("Inside API search: " + search)
+        return axios.get("/api/post/search/" + search)
+    },
+
     getTopics: function () {
         return axios.get("/api/post/topics");
     },

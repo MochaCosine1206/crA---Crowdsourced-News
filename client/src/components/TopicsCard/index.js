@@ -8,9 +8,13 @@ export function TopicsCard(props) {
     return (
         <div>
             <div className="container-fluid">
-                <li><Link
-                onClick={e => {props.filterTopics(props.topic)}}
-                >{props.topic}</Link></li>
+                <li data-toggle="collapse"
+                    data-target="#topics"
+                    >
+                    <Link
+                        to={"/post/" + props.topic}
+                        // onClick={e => { props.filterTopics(props.topic) }}
+                    >{props.topic}</Link></li>
             </div>
         </div>
     );

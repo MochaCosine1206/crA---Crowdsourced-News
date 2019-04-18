@@ -41,7 +41,6 @@ export function SentimentBadge(props) {
           </span>
         }
 
-    console.log(props)
     return (
         <div id="sentimentBadge">
             <Row>

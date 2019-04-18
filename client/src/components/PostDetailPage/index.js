@@ -4,7 +4,7 @@ import API from "../../utils/API";
 import "./style.css";
 // import { Link } from "react-router-dom";
 // import {Input, FormBtn} from "../PostForm";
-import { Container, Row, Col } from "../Grid";
+// import { Container, Row, Col } from "../Grid";
 import CardSinglePostContainer from "../CardSinglePostContainer";
 
 
@@ -15,7 +15,6 @@ class PostDetailPage extends Component {
     };
 
     componentDidMount() {
-        console.log(this.props.match.params.id)
         API.getPost(this.props.match.params.id)
         .then(res => 
             this.setState({ posts: res.data }))
@@ -25,7 +24,6 @@ class PostDetailPage extends Component {
 
 
 render(props) {
-    console.log(this.state.posts)
     return (
         <div>
             <CardSinglePostContainer

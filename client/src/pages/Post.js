@@ -17,7 +17,6 @@ class Post extends Component {
     getUser = () => {
         API.getLoggedInUser()
         .then(res => {
-            console.log(res.data)
             if (!res.data) {
                 this.props.history.push("/")
             } else {
@@ -28,7 +27,6 @@ class Post extends Component {
     }
 
 render() {
-    console.log(this.state.user)
     return (
         <div>
         <Navbar userImage={this.state.user.picture}/>

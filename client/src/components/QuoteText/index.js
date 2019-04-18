@@ -9,7 +9,6 @@ export function QuoteText(props) {
         text = <p><i className="fas fa-quote-right"></i><span>  </span>{props.quote}<span>  </span><i className="fas fa-quote-left"></i></p>
         quoteName = <p>-- {props.name.text}</p>
     }
-    console.log(props)
     return (
         <div id="QuoteText">
         {text}

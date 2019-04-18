@@ -1,6 +1,6 @@
 import React from "react"
 import "./style.css";
-import { Container, Row, Col } from "../Grid";
+import { Row } from "../Grid";
 
 
 export function UserContainer(props) {
