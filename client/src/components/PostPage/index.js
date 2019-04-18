@@ -27,7 +27,7 @@ class PostPage extends Component {
         if (this.state.topic === "all") {
             this.getPosts();
         } else {
-            this.filterTopics(this.state.topic)
+            this.getFilteredPosts(this.state.topic)
         }
 
         this.getUser();
