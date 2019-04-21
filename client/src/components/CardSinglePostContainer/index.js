@@ -45,13 +45,23 @@ class CardSinglePostContainer extends Component {
         });
     };
 
+    updatePostComment = (postId, commentId) => {
+        API.updatePostComment({postId: postId, commentId: commentId}).then( res => {
+            console.log(res.data);
+        })
+    }
+
     handleFormSubmit = event => {
         event.preventDefault();
 
         API.submitComment({ text: this.state.comment, user: this.state.user, post: this.state.post }).then(res => {
             this.setState({ comment: "" })
+            console.log(res.data._id)
+            this.updatePostComment(this.props.id, res.data._id)
             this.getComments(this.props.id)
         })
+
+        
     };
 
     render(props) {
@@ -116,7 +126,7 @@ class CardSinglePostContainer extends Component {
                                     value={this.state.comment}
                                     onChange={this.handleInputChange}
                                     name="comment"
-                                    placeholder="Post article URL here (required)"
+                                    placeholder="Post a comment"
                                 />
                             </Col>
                             <Col size="xs-3 sm-2">

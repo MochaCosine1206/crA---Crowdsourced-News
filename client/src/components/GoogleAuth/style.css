@@ -2,7 +2,13 @@ a {
     -webkit-tap-highlight-color: transparent;
     text-decoration: none;
    }
+
    img {
+    height: 60px;
+    margin-top: 25px;
+   }
+
+   #googleIcon {
        height: 60px;
        margin-top: 25px;
        
@@ -11,7 +17,7 @@ a {
    .button-label {
     vertical-align: middle;
    }
-   .button {
+   #loginButton {
     display: inline-block;
     max-width: 400px;
     margin-top: 20px;
@@ -30,10 +36,21 @@ a {
     font: inherit;
     outline: none;
    }
-   .button .svgIcon {
+
+   #loginButton .svgIcon {
     vertical-align: middle;
     fill: rgba(0, 0, 0, 0.54);
     padding-right: 4px;
     height: 37px;
     display: inline-block;
    }
+
+   @media screen and (max-width:767px) {
+    #googleIcon {
+        height: 26px;
+    }
+
+    #loginButton {
+        height: 61px;
+    } 
+}

@@ -18,13 +18,13 @@ const userSchema = new Schema({
   posts: [
     {
       type: Schema.Types.ObjectId,
-      ref: "Posts"
+      ref: "posts"
     }
   ],
   comments: [
     {
       type: Schema.Types.ObjectId,
-      ref: "Comments"
+      ref: "comments"
     }
   ],
   role: {type: String, required: true, default: "user"},

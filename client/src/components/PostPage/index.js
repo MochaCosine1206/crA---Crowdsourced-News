@@ -13,6 +13,7 @@ class PostPage extends Component {
         posts: [],
         post: "",
         user: "",
+        userId: "",
         topics: [],
         places: [],
         people: [],
@@ -68,7 +69,7 @@ class PostPage extends Component {
                 if (!res.data) {
                     this.props.history.push("/")
                 } else {
-                    this.setState({ user: res.data.fullName })
+                    this.setState({ user: res.data.fullName, userId: res.data._id })
                 }
 
             })
@@ -96,6 +97,10 @@ class PostPage extends Component {
                 this.setState({ people: res.data })
 
             })
+    };
+
+    addPostToUser = (userId, postId) => {
+        API.addPostToUser(userId, postId)
     }
 
     handleInputChange = event => {
@@ -108,6 +113,8 @@ class PostPage extends Component {
     handleFormSubmit = event => {
         event.preventDefault();
         API.submitArticle(this.state.post).then(res => {
+            console.log("This is the id of the post that was just created: " + res.data._id)
+            this.addPostToUser(this.state.userId, res.data._id)
             this.getPosts();
             this.getTopics();
             this.getPeople();
@@ -234,7 +241,9 @@ class PostPage extends Component {
                         logo={post.logo}
                         altLogo={post.altLogo}
                         quotes={post.quotes}
+                        comments={post.comments}
                         postDetail={this.postDetail}
+                        submitDate={post.createDate}
                     >
                     </CardPostContainer>
                 ))}

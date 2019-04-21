@@ -6,6 +6,16 @@ export default {
         return axios.post("/api/post/submitArticle/", { articleSubmition: url })
     },
 
+    addPostToUser: function(userId, post) {
+        console.log("In API: " + userId)
+        return axios.post("/api/user/updateUser/", { userId: userId, postId: post })
+
+    },
+
+    getUserPosts: function(userId) {
+        return axios.get("/api/user/getUserPosts/" + userId)
+    },
+
     getLoggedInUser: function () {
         return axios.get("/api/user/loggedinuser")
     },
@@ -37,6 +47,10 @@ export default {
 
     submitComment: function(data) {
         return axios.post("/api/comment", data);
+    },
+
+    updatePostComment: function(data) {
+        return axios.post("/api/post/updatePostComment", data);
     },
 
     getPostComments: function(postId) {

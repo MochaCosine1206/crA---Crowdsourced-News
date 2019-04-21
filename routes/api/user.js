@@ -7,6 +7,14 @@ router.route("/")
   .get(userController.findAll)
   .post(userController.create);
 
+  router.route("/updateUser")
+  .post(userController.updateUserPost)
+  .get(userController.updateUserPost)
+
+  router.route("/getUserPosts/:userId")
+  .get(userController.getUserPosts)
+  
+
   router.route("/loggedinuser")
   .post(userController.user)
   .get(userController.user)

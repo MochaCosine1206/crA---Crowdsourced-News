@@ -1,4 +1,4 @@
-#LoginCard{
+#LoginCard {
     margin-top: 10%;
     margin-bottom: 20%;
     width: 100%;
@@ -9,14 +9,12 @@
     background-color: white;
 }
 
-#loginHeader{
+#loginHeader {
     margin-left: 15px;
     margin-bottom: 20px;
     font-family: ivymode, sans-serif;
     font-size: 80px;
 }
-
-
 
 #loginBackground {
     background-image: url('https://img.itch.zone/aW1hZ2UvMjUyNTQ3LzEyMzAwMzcuanBn/original/R%2FVkiz.jpg');
@@ -24,4 +22,17 @@
     background-size: cover;
     background-color: black;
     height: 100vh
+}
+
+@media screen and (max-width:767px) {
+    .border-right {
+        border: 0px solid !important
+    }
+
+    #loginHeader {
+        margin-left: 15px;
+        margin-bottom: 20px;
+        font-family: ivymode, sans-serif;
+        font-size: 50px;
+    }
 }

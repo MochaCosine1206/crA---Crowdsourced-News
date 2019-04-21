@@ -16,7 +16,7 @@ function Navbar(props) {
           <ul className="navbar-nav mx-auto">
             <li className="nav-item">
               <Link
-                to="/post"
+                to="/post/all"
                 className={
                   window.location.pathname === "/" || window.location.pathname === "/post/all"
                     ? "nav-link active"

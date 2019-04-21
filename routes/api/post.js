@@ -18,6 +18,9 @@ router.route("/places")
 router.route("/search/:search")
   .get(postController.getFilteredPosts)
 
+router.route("/updatePostComment")
+  .post(postController.updatePostComment)
+
 // Matches with "/api/post"
 router.route("/")
   .get(postController.findAll)

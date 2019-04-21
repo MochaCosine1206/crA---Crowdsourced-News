@@ -5,6 +5,8 @@ import PostImage from "../PostImage"
 import PostTitle from "../PostTitle"
 import PostDescription from "../PostDescription"
 import PostQuote from "../PostQuote"
+import CommentCount from "../CommentCount"
+import DateSubmitted from "../DateSubmitted"
 import SentimentBadge from "../SentimentBadge"
 import Palette from "react-palette"
 
@@ -48,6 +50,10 @@ export function CardPostContainer(props) {
                         <Row>
                         {logoPic}
                         <SentimentBadge sentimentScore={props.sentimentScore} avgSentiment={props.avgSentiment} />
+                        <CommentCount 
+                        comments={props.comments}
+                        />
+                        <DateSubmitted submitDate={props.submitDate} />
                         </Row>
                             <Row>
                                 <PostTitle title={props.title} />
@@ -55,6 +61,8 @@ export function CardPostContainer(props) {
                             </Row>
                             <Row>
                                     {descriptionDiv}
+                            </Row>
+                            <Row>
                                     <PostQuote quotes={props.quotes} />
                             </Row>
                             </div>

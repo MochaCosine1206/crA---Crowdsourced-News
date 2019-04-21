@@ -12,7 +12,7 @@ export function PostHeader(props) {
         <div id="headerDiv">
             <Row>
                 <Col size="md-12">
-                <div className="shadow-sm rounded bg-white" id="HeaderText">
+                <div className="shadow-sm rounded bg-white" id="headerText">
                 {logoPic}
                 {"       "}{props.site}</div>
                 </Col>

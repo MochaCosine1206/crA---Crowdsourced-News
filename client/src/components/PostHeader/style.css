@@ -2,10 +2,12 @@
     height: 60px;
 }
 
-#HeaderText {
+#headerText {
     font-size: 28px;
     padding: 5px;
-    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-family: acumin-pro-wide, sans-serif;
+    font-style: normal;
+    font-weight: 400;
 }
 
 svg {

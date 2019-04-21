@@ -162,14 +162,17 @@ module.exports = {
 
 
           console.log(result);
+
+
           db.Posts.create(result)
-            .then(dbModel => res.json(dbModel))
+            .then(dbModel => {
+              res.json(dbModel)
+            })
             .catch(err => res.status(422).json(err));
-
         })
-
     }
   },
+
 
   getFilteredPosts: function (req, res) {
     console.log("Inside Controller " + req.params.search)
@@ -215,6 +218,23 @@ module.exports = {
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
+
+  updatePostComment: function (req, res) {
+    console.log("postId " + req.body.postId);
+    console.log("commentId " + req.body.commentId)
+    db.Posts.findOneAndUpdate({"_id": req.body.postId},
+    {$push:
+      {
+        'comments': req.body.commentId
+      }
+    },
+    {
+      new: true
+    }
+  )
+    .then(dbModel => {res.json(dbModel)})
+    .catch(err => res.status(422).json(err));
+},
 
 
   findAll: function (req, res) {
