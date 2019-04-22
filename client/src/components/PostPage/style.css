@@ -1,3 +1,15 @@
 .jumbotron {
     padding: 20px;
 }
+
+@media screen and (max-width:1025px) {
+    .card-columns {
+        column-count: 2;
+    }
+}
+
+@media screen and (max-width:600px) {
+    .card-columns {
+        column-count: 1;
+    }
+}
