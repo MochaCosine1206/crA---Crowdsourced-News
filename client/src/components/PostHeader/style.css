@@ -4,7 +4,6 @@
 
 #headerText {
     font-size: 28px;
-    padding: 5px;
     font-family: acumin-pro-wide, sans-serif;
     font-style: normal;
     font-weight: 400;
@@ -16,7 +15,7 @@ svg {
 }
 #HeaderLogo {
     max-height: 50px;
-    margin: 5px;
+    margin: 5px 0px;
     border-radius: 5px;
 }
 

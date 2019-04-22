@@ -13,7 +13,7 @@ import Palette from "react-palette"
 
 
 export function CardPostContainer(props) {
-     
+
     let siteName;
     let descriptionDiv;
     if (props.site) {
@@ -28,51 +28,46 @@ export function CardPostContainer(props) {
 
     let logoPic;
     if (props.altLogo) {
-        logoPic = <div className="row"><img id="logo" src={props.altLogo} alt="..." />{"       "}<p id="headerText">{siteName}</p></div>
+        logoPic = <div className="row"><img id="logo" src={props.altLogo} alt="..." />{"       "}<p id="cardHeaderText">{siteName}</p></div>
     } else if (props.logo) {
         logoPic = <span dangerouslySetInnerHTML={{ __html: props.logo }}></span>
-    } 
+    }
 
-    
+
 
     return (
-        <div>
-        <Container>
-            <Palette image={props.image}>
-                {palette => (
-                    <div
-                        className="shadow p-3 mb-5 rounded border"
-                        style={{ backgroundColor: palette.vibrant }}
-                        onClick={e => props.postDetail(props.id)}
-                    >
-                        <PostImage image={props.image} />
-                        <div id="cardText">
-                        <Row>
-                        {logoPic}
-                        <SentimentBadge sentimentScore={props.sentimentScore} avgSentiment={props.avgSentiment} />
-                        <CommentCount 
-                        comments={props.comments}
-                        />
-                        <DateSubmitted submitDate={props.submitDate} />
-                        </Row>
-                            <Row>
-                                <PostTitle title={props.title} />
-                                
-                            </Row>
-                            <Row>
-                                    {descriptionDiv}
-                            </Row>
-                            <Row>
-                                    <PostQuote quotes={props.quotes} />
-                            </Row>
-                            </div>
-                    </div>
-                )}
+        <div className="card">
+                        <Palette image={props.image}>
+                            {palette => (
+                                <div
+                                    className="shadow p-3 rounded border"
+                                    style={{ backgroundColor: palette.vibrant }}
+                                    onClick={e => props.postDetail(props.id)}
+                                >
+                                    <PostImage image={props.image} />
+                                    <div id="cardText">
+                                        <Row>
+                                            {logoPic}
+                                            <SentimentBadge sentimentScore={props.sentimentScore} avgSentiment={props.avgSentiment} comments={props.comments} />
+                                            {/* <CommentCount
+                                                comments={props.comments}
+                                            /> */}
+                                            <DateSubmitted submitDate={props.submitDate} />
+                                        </Row>
+                                        <Row>
+                                            <PostTitle title={props.title} />
 
-
-            </Palette>
-
-        </Container>
+                                        </Row>
+                                        <Row>
+                                            {descriptionDiv}
+                                        </Row>
+                                        <Row>
+                                            <PostQuote quotes={props.quotes} />
+                                        </Row>
+                                    </div>
+                                </div>
+                            )}
+                        </Palette>
         </div>
     );
 }

@@ -7,14 +7,20 @@ svg {
     padding: 10px;
 }
 
-#headerText {
-    margin-top: 10px;
-    margin-left: 10px;
-    margin-right: 25px;
-    font-size: 36px;
+#cardHeaderText {
+    margin-top: 4px;
+    margin-left: 2px;
+    margin-right: 4px;
+    padding: 5px;
+    font-size: 27px;
+    font-family: acumin-pro-wide, sans-serif;
+    font-style: normal;
+    font-weight: 800;   
 }
 
 #logo {
-    margin-left: 30px;
+    margin-left: 20px;
     border-radius: 5px;
+    height: 32px;
 }
+

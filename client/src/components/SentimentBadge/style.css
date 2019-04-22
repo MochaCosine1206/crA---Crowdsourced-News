@@ -1,3 +1,6 @@
 #sentimentBadge {
-    margin: 8px;
+    position: absolute;
+    top: 15px;
+    right: 31px;
+    margin: 5px;
 }

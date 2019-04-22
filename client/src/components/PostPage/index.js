@@ -37,7 +37,7 @@ class PostPage extends Component {
         this.getPlaces();
     }
 
-    componentWillReceiveProps(newProps){
+    componentWillReceiveProps(newProps) {
         this.setState({
             topic: newProps.match.params.search
         })
@@ -126,20 +126,11 @@ class PostPage extends Component {
         this.props.history.push("/post/" + this.state.topic + "/" + id)
     }
 
-    // filterTopics = (keyword) => {
-    //     console.log("The Keyword is: " + keyword)
-    //     this.setState({
-    //         topic: keyword
-    //     })
-    //     this.props.history.push("/post/" + keyword)
-    // }
-
     render() {
         return (
             <div>
                 <div className="jumbotron jumbotron-fluid">
                     <Container>
-                        {/* <h1 className="display-5">Post Here {this.state.user}</h1> */}
 
                         <Row>
                             <Col size="xs-9 sm-10">
@@ -157,11 +148,8 @@ class PostPage extends Component {
                                     onClick={this.handleFormSubmit}
                                 >
                                     Post
-        </FormBtn>
+                                </FormBtn>
                                 <button className="btn btn-outline-secondary" data-toggle="collapse" data-target="#topics">Topics</button>
-
-
-
                             </Col>
                         </Row>
                     </Container>
@@ -176,8 +164,7 @@ class PostPage extends Component {
                                                 key={topic._id}
                                                 id={topic._id}
                                                 topic={topic._id}
-                                                // filterTopics={this.filterTopics}
-                                                
+
                                             >
                                             </TopicsCard>
                                         ))}
@@ -191,7 +178,7 @@ class PostPage extends Component {
                                                 key={person._id}
                                                 id={person._id}
                                                 topic={person._id}
-                                                // filterTopics={this.filterTopics}
+                                            // filterTopics={this.filterTopics}
                                             >
                                             </TopicsCard>
                                         ))}
@@ -205,7 +192,7 @@ class PostPage extends Component {
                                                 key={place._id}
                                                 id={place._id}
                                                 topic={place._id}
-                                                // filterTopics={this.filterTopics}
+                                            // filterTopics={this.filterTopics}
                                             >
                                             </TopicsCard>
                                         ))}
@@ -215,39 +202,39 @@ class PostPage extends Component {
                         </div>
                     </div>
                 </div>
-
-                {this.state.posts.map(post => (
-                    <CardPostContainer
-                        key={post._id}
-                        id={post._id}
-                        title={post.title}
-                        site={post.publisher}
-                        siteName={post.siteName}
-                        favicon={post.favicon}
-                        publishedDate={post.publishedDate}
-                        siteUrl={post.url}
-                        author={post.author}
-                        description={post.description}
-                        image={post.image}
-                        text={post.text}
-                        keywords={post.keywords}
-                        tags={post.tags}
-                        backupKeywords={post.compromiseKeywords}
-                        avgSentiment={post.avgSentiment}
-                        sentimentScore={post.sentimentScore}
-                        objectiveScore={post.objectiveScore}
-                        negativeScore={post.negativeScore}
-                        positiveScore={post.positiveScore}
-                        logo={post.logo}
-                        altLogo={post.altLogo}
-                        quotes={post.quotes}
-                        comments={post.comments}
-                        postDetail={this.postDetail}
-                        submitDate={post.createDate}
-                    >
-                    </CardPostContainer>
-                ))}
-
+                <div className="card-columns">
+                    {this.state.posts.map(post => (
+                        <CardPostContainer
+                            key={post._id}
+                            id={post._id}
+                            title={post.title}
+                            site={post.publisher}
+                            siteName={post.siteName}
+                            favicon={post.favicon}
+                            publishedDate={post.publishedDate}
+                            siteUrl={post.url}
+                            author={post.author}
+                            description={post.description}
+                            image={post.image}
+                            text={post.text}
+                            keywords={post.keywords}
+                            tags={post.tags}
+                            backupKeywords={post.compromiseKeywords}
+                            avgSentiment={post.avgSentiment}
+                            sentimentScore={post.sentimentScore}
+                            objectiveScore={post.objectiveScore}
+                            negativeScore={post.negativeScore}
+                            positiveScore={post.positiveScore}
+                            logo={post.logo}
+                            altLogo={post.altLogo}
+                            quotes={post.quotes}
+                            comments={post.comments}
+                            postDetail={this.postDetail}
+                            submitDate={post.createDate}
+                        >
+                        </CardPostContainer>
+                    ))}
+                </div>
             </div>
         );
     }

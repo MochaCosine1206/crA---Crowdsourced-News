@@ -70,7 +70,7 @@ class CardSinglePostContainer extends Component {
                 <div
                     id="postJumbo"
                     className="jumbotron jumbotron-fluid"
-                    style={{ backgroundAttachment: "fixed", backgroundImage: `url(${this.props.image})`, backgroundSize: "cover" }}
+                    style={{ backgroundAttachment: "fixed", backgroundImage: `url(${this.props.image})`, backgroundSize: "cover", backgroundPosition: "center center" }}
                 >
                     <PostHeader
                         logo={this.props.logo}

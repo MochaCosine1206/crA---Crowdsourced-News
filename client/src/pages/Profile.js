@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Navbar from "../components/Navbar";
 import ProfileContainer from "../components/ProfileContainer";
+import ProfileTabs from "../components/ProfileTabs";
 import API from "../utils/API";
 
 
@@ -48,15 +49,12 @@ render() {
         <div>
             <Navbar userImage={this.state.user.picture}/>
             <div className="container">
-            <ProfileContainer 
+            <ProfileTabs 
             userName = {this.state.user.fullName}
             userImage = {this.state.user.picture}
             email = {this.state.user.email}
+            postData = {this.state.userPosts}
             />
-            <h5>Your Posts: </h5>
-            {this.state.userPosts.map(post => (
-                <p>{post.url}</p>
-            ))}
             </div>
         </div>
     );
