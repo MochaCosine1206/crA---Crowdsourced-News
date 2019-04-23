@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { withRouter } from "react-router-dom";
+import { withRouter, Link } from "react-router-dom";
 import API from "../../utils/API";
 import "./style.css";
 import { Input, FormBtn } from "../PostForm";
@@ -14,6 +14,10 @@ class PostPage extends Component {
         post: "",
         user: "",
         userId: "",
+        dupError: "",
+        noTextError: "",
+        existingPost: "",
+        show: "",
         topics: [],
         places: [],
         people: [],
@@ -100,7 +104,9 @@ class PostPage extends Component {
     };
 
     addPostToUser = (userId, postId) => {
-        API.addPostToUser(userId, postId)
+        API.addPostToUser(userId, postId).then(res => {
+            console.log("Message from UserPost: " + JSON.stringify(res.data))
+        })
     }
 
     handleInputChange = event => {
@@ -113,12 +119,25 @@ class PostPage extends Component {
     handleFormSubmit = event => {
         event.preventDefault();
         API.submitArticle(this.state.post).then(res => {
-            console.log("This is the id of the post that was just created: " + res.data._id)
-            this.addPostToUser(this.state.userId, res.data._id)
-            this.getPosts();
-            this.getTopics();
-            this.getPeople();
-            this.getPlaces();
+            console.log("ERROR: " + res.data.name)
+            if (res.data.name === "MongoError") {
+                this.setState({ dupError: "ERROR: " + JSON.stringify(res.data.errmsg) })
+                API.getExistingPost(this.state.post).then(res => {
+                    console.log("This is the post that already exists: " + res.data[0]._id)
+                    this.setState({ existingPost: res.data[0]._id })
+                })
+            } else if (res.data.name ===  "ValidationError") {
+                this.setState({ noTextError: res.data.errors.title.message })
+            } else {
+                this.setState({ noTextError: "", dupError: "" })
+                console.log("This is the id of the post that was just created: " + res.data._id)
+                this.addPostToUser(this.state.userId, res.data._id)
+                this.getPosts();
+                this.getTopics();
+                this.getPeople();
+                this.getPlaces();
+            }
+
         })
     };
 
@@ -127,11 +146,25 @@ class PostPage extends Component {
     }
 
     render() {
+        let errAlert;
+        if (this.state.dupError) {
+            errAlert = <div class="alert alert-light alert-dismissible fade show" role="alert">
+                Congratulations! Someone else already submitted this link, <Link to={"/post/" + this.state.topic + "/" + this.state.existingPost} class="alert-link">click here</Link> to read or comment.<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        } else if (this.state.noTextError) {
+            errAlert = <div class="alert alert-light alert-dismissible fade show" role="alert">
+                {this.state.noTextError} <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        }
         return (
             <div>
                 <div className="jumbotron jumbotron-fluid">
                     <Container>
-
+                        {errAlert}
                         <Row>
                             <Col size="xs-9 sm-10">
                                 <Input

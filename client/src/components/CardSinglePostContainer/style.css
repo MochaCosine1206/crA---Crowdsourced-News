@@ -17,3 +17,7 @@ svg {
     height: 100px;
     fill: black;
 }
+
+#commentForm {
+    margin-bottom: 10px;
+}

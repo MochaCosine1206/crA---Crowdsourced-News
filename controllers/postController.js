@@ -164,11 +164,12 @@ module.exports = {
           console.log(result);
 
 
+
           db.Posts.create(result)
             .then(dbModel => {
               res.json(dbModel)
             })
-            .catch(err => res.status(422).json(err));
+            .catch(err => res.json(err));
         })
     }
   },
@@ -233,6 +234,14 @@ module.exports = {
     }
   )
     .then(dbModel => {res.json(dbModel)})
+    .catch(err => res.status(422).json(err));
+},
+
+findByUrl: function (req, res) {
+  console.log("In findByUrl" + req.body.articleSubmition)
+  db.Posts
+    .find({ url: req.body.articleSubmition })
+    .then(dbModel => res.json(dbModel))
     .catch(err => res.status(422).json(err));
 },
 

@@ -11,20 +11,25 @@ module.exports = {
   },
 
   updateUserPost: function (req, res) {
-    console.log("User ID: " + req.body.userId)
-    console.log("User post: " + req.body.postId)
-    db.User.findOneAndUpdate({"_id": req.body.userId},
-      {$push:
+    if (req.body.postId && req.body.userId){
+      console.log("User ID: " + req.body.userId)
+      console.log("User post: " + req.body.postId)
+      db.User.findOneAndUpdate({"_id": req.body.userId},
+        {$push:
+          {
+            'posts': req.body.postId
+          }
+        },
         {
-          'posts': req.body.postId
+          new: true
         }
-      },
-      {
-        new: true
-      }
-    )
-      .then(dbModel => {res.json(dbModel)})
-      .catch(err => res.status(422).json(err));
+      )
+        .then(dbModel => {res.json(dbModel)})
+        .catch(err => res.status(422).json(err));
+    } else {
+      res.json("Error, was not able to add post to user")
+    }
+    
   },
 
   getUserPosts: function (req, res) {

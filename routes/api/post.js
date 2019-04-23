@@ -21,6 +21,9 @@ router.route("/search/:search")
 router.route("/updatePostComment")
   .post(postController.updatePostComment)
 
+  router.route("/existingPost")
+  .post(postController.findByUrl)
+
 // Matches with "/api/post"
 router.route("/")
   .get(postController.findAll)

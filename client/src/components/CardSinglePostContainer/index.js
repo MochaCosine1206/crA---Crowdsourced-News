@@ -119,8 +119,10 @@ class CardSinglePostContainer extends Component {
                             </Palette>
                         </Row>
                         <p>Comments Go Here</p>
+                        <div id="commentForm">
                         <Row>
                             <Col size="xs-9 sm-10">
+                            
                                 <Input
                                     type="text"
                                     value={this.state.comment}
@@ -138,6 +140,7 @@ class CardSinglePostContainer extends Component {
                                 </FormBtn>
                             </Col>
                         </Row>
+                        </div>
                         <List>
                             {this.state.comments.map(comment => (
                                 <ListItem
@@ -149,6 +152,7 @@ class CardSinglePostContainer extends Component {
                                 </ListItem>
                             ))}
                         </List>
+                        
                     </div>
                 </Row>
 

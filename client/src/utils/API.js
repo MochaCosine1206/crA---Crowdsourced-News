@@ -2,14 +2,11 @@ import axios from "axios";
 
 export default {
     submitArticle: function (url) {
-        console.log("In API: " + url)
         return axios.post("/api/post/submitArticle/", { articleSubmition: url })
     },
 
     addPostToUser: function(userId, post) {
-        console.log("In API: " + userId)
         return axios.post("/api/user/updateUser/", { userId: userId, postId: post })
-
     },
 
     getUserPosts: function(userId) {
@@ -25,7 +22,6 @@ export default {
     },
 
     getFilteredPosts: function (search) {
-        console.log("Inside API search: " + search)
         return axios.get("/api/post/search/" + search)
     },
 
@@ -43,6 +39,11 @@ export default {
 
     getPost: function (id) {
         return axios.get("/api/post/" + id);
+    },
+
+    getExistingPost: function (url) {
+        console.log("In getExistingPost " + url)
+        return axios.post("/api/post/existingPost/" , { articleSubmition: url });
     },
 
     submitComment: function(data) {

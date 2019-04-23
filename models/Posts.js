@@ -3,8 +3,8 @@ const Schema = mongoose.Schema;
 
 const postSchema = new Schema({
   siteName: { type: String, required: true},
-  url: { type: String, required: true, unique: true },
-  title: { type: String, required: "Please submit another article, we are experiencing technical difficulties." },
+  url: { type: String, required: true, index: { unique: "Congratulations!  This article already exists!" }},
+  title: { type: String, required: "Please submit another article, this website is not yet supported." },
   publishedDate: String,
   description: { type: String },
   author: [String],
@@ -12,7 +12,7 @@ const postSchema = new Schema({
   copyright: { type: String },
   favicon: { type: String },
   image: { type: String },
-  text: { type: String, required: true },
+  text: { type: String, required: "No text was returned from the article" },
   tags: [String],
   keywords: { type: String },
   links: [{}],

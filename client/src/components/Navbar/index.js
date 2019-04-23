@@ -6,9 +6,9 @@ import LogOutButton from "../LogOutButton"
 // Depending on the current path, this component sets the "active" class on the appropriate navigation link item
 function Navbar(props) {
     return (
-      <nav className="navbar sticky-top navbar-expand-lg navbar-light">
+      <nav className="navbar navbar-expand-lg navbar-light">
       <div className="mr-auto order-0">
-        <Link id="navBrand" className="navbar-brand" to="/">
+        <Link id="navBrand" className="navbar-brand" to="/post/all">
           crA crA - Crowdsourced News
         </Link>
         </div>
