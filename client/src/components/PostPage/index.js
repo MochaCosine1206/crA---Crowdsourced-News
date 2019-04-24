@@ -148,14 +148,14 @@ class PostPage extends Component {
     render() {
         let errAlert;
         if (this.state.dupError) {
-            errAlert = <div class="alert alert-light alert-dismissible fade show" role="alert">
+            errAlert = <div className="alert alert-light alert-dismissible fade show" role="alert">
                 Congratulations! Someone else already submitted this link, <Link to={"/post/" + this.state.topic + "/" + this.state.existingPost} class="alert-link">click here</Link> to read or comment.<button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
         } else if (this.state.noTextError) {
-            errAlert = <div class="alert alert-light alert-dismissible fade show" role="alert">
-                {this.state.noTextError} <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            errAlert = <div className="alert alert-light alert-dismissible fade show" role="alert">
+                {this.state.noTextError} <button type="button" className="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -186,7 +186,7 @@ class PostPage extends Component {
                             </Col>
                         </Row>
                     </Container>
-                    <div id="topics" class="collapse">
+                    <div id="topics" className="collapse">
                         <div className="container">
                             <div className="row">
                                 <div className="col-xs-12 col-md-4">

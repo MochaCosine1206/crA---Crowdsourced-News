@@ -49,9 +49,6 @@ export function CardPostContainer(props) {
                                         <Row>
                                             {logoPic}
                                             <SentimentBadge sentimentScore={props.sentimentScore} avgSentiment={props.avgSentiment} comments={props.comments} />
-                                            {/* <CommentCount
-                                                comments={props.comments}
-                                            /> */}
                                             <DateSubmitted submitDate={props.submitDate} />
                                         </Row>
                                         <Row>
