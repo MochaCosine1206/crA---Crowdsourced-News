@@ -63,6 +63,7 @@ class PostPage extends Component {
     getFilteredPosts = (keyword) => {
         API.getFilteredPosts(keyword)
             .then(res => {
+                console.log("After filtering data: " + res.data)
                 this.setState({ posts: res.data })
             })
     }
