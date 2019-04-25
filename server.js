@@ -5,7 +5,7 @@ const passport = require('passport');
 const cookieSession = require("cookie-session");
 const mongoose = require("mongoose");
 const routes = require("./routes");
-// const keys = require("./config/keys");
+const keys = require("./config/keys");
 const app = express();
 // const io = require("socket.io")();
 const PORT = process.env.PORT || 3001;
@@ -24,8 +24,8 @@ if (process.env.NODE_ENV === "production") {
 
 app.use(cookieSession({
   maxAge: 24 * 60 * 60 * 1000,
-  keys: [process.env.session_cookieKey]
-  // keys: [keys.session.cookieKey]
+  // keys: [process.env.session_cookieKey]
+  keys: [keys.session.cookieKey]
 }))
 
 
