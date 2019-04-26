@@ -118,6 +118,13 @@ class PostPage extends Component {
         this.setState({
             [name]: value
         });
+    };
+
+    handleSearchChange = event => {
+        const { name, value } = event.target;
+        this.setState({
+            [name]: value
+        });
         if (value){
             this.getFilteredPosts(value);
         } else if (this.state.topic === "all") {
@@ -195,7 +202,7 @@ class PostPage extends Component {
                                 <Input
                                     type="text"
                                     value={this.state.search}
-                                    onChange={this.handleInputChange}
+                                    onChange={this.handleSearchChange}
                                     name="search"
                                     placeholder="Enter search terms here to filter posts"
                                 />
