@@ -63,6 +63,7 @@ class PostPage extends Component {
     }
 
     getFilteredPosts = (keyword) => {
+        console.log("Search Value: " + keyword)
         API.getFilteredPosts(keyword)
             .then(res => {
                 console.log("After filtering data: " + res.data)
@@ -117,7 +118,14 @@ class PostPage extends Component {
         this.setState({
             [name]: value
         });
-        this.getFilteredPosts(this.state.search);
+        if (value){
+            this.getFilteredPosts(value);
+        } else if (this.state.topic === "all") {
+            this.getPosts();
+        } else {
+            this.getFilteredPosts(this.state.topic)
+        }
+        
     };
 
     handleFormSubmit = event => {
