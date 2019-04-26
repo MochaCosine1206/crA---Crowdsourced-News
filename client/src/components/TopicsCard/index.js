@@ -13,7 +13,6 @@ export function TopicsCard(props) {
                     >
                     <Link
                         to={"/post/" + props.topic}
-                        // onClick={e => { props.filterTopics(props.topic) }}
                     >{props.topic}</Link></li>
             </div>
         </div>

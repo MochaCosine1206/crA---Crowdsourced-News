@@ -1,7 +1,7 @@
 import React from "react";
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 import "./style.css";
-import { Row} from "../Grid";
+import { Row } from "../Grid";
 import PostImage from "../PostImage"
 import PostTitle from "../PostTitle"
 import PostDescription from "../PostDescription"

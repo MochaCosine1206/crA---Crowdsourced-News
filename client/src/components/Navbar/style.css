@@ -1,10 +1,23 @@
 .navbar {
-    margin-bottom: 0;
-    background-color: white;
-  }
+  margin-bottom: 0;
+  background-color: white;
+  font-family: chippewa-falls, sans-serif;
+  font-weight: 500;
+  font-style: normal;
+  font-size: 24px;
+  box-shadow: 0px 5px 15px lightgrey;
+  margin-bottom: 20px;
+}
 
-  #navBrand {
-    font-family: ivymode, sans-serif;
-    font-size: 5vmin;
-    color: black;
-  }
+#navBrand {
+  font-family: chippewa-falls, sans-serif;
+  font-weight: 500;
+  font-style: normal;
+  font-size: 8vmin;
+  color: rgb(252, 4, 86);
+}
+
+#navBrandSpan {
+  color: greenyellow;
+  font-size: 9vmin;
+}

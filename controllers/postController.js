@@ -4,6 +4,8 @@ const extractor = require('unfluff')
 const sw = require('sentiword');
 const nlp = require('compromise');
 const url = require('url');
+const mongoose = require("mongoose");
+const ObjectId = mongoose.Types.ObjectId;
 var websiteLogo = require('website-logo');
 var quoteParser = require('quote-parser');
 
@@ -17,13 +19,13 @@ module.exports = {
     getLogo = url => {
       //parse url for hostname
       const myURL = new URL(url);
-      console.log(myURL.hostname);
+      // console.log(myURL.hostname);
 
       //get site logo info
       websiteLogo(myURL.hostname, function (error, images) {
-        console.log(error || images)
+        // console.log(error || images)
 
-        console.log(decodeURI(images.logo))
+        // console.log(decodeURI(images.logo))
         const logoExtract = decodeURI(images.logo)
         const logo = logoExtract.split(/,(.+)/)[1]
         const altLogo = images.openGraph
@@ -43,55 +45,56 @@ module.exports = {
 
 
           let unfluffData = extractor(response.data);
-          console.log("unfluff data: " + JSON.stringify(unfluffData));
-          console.log("--------------------------------------/n");
-          console.log("Title: " + unfluffData.title);
-          console.log("--------------------------------------/n");
-          console.log("Date: " + unfluffData.date);
-          console.log("--------------------------------------/n");
-          console.log("Author: " + unfluffData.author);
-          console.log("--------------------------------------/n");
-          console.log("Publisher: " + unfluffData.publisher);
-          console.log("--------------------------------------/n");
-          console.log("Copyright: " + unfluffData.copyright);
-          console.log("--------------------------------------/n");
-          console.log("Favicon: " + unfluffData.favicon);
-          console.log("--------------------------------------/n");
-          console.log("Description: " + unfluffData.description);
-          console.log("--------------------------------------/n");
-          console.log("Link: " + unfluffData.canonicalLink);
-          console.log("--------------------------------------/n");
-          console.log("Tags: " + unfluffData.tags);
-          console.log("--------------------------------------/n");
-          console.log("Image: " + unfluffData.image);
-          console.log("--------------------------------------/n");
-          console.log("Videos: " + unfluffData.videos);
-          console.log("--------------------------------------/n");
-          console.log("Links/descriptions: " + unfluffData.links);
-          console.log("--------------------------------------/n");
-          console.log("Text: " + unfluffData.text);
-          console.log("--------------------------------------/n");
-          console.log("keywords: " + unfluffData.keywords);
-          console.log("--------------------------------------/n");
+          // console.log("unfluff data: " + JSON.stringify(unfluffData));
+          // console.log("--------------------------------------/n");
+          // console.log("Title: " + unfluffData.title);
+          // console.log("--------------------------------------/n");
+          // console.log("Date: " + unfluffData.date);
+          // console.log("--------------------------------------/n");
+          // console.log("Author: " + unfluffData.author);
+          // console.log("--------------------------------------/n");
+          // console.log("Publisher: " + unfluffData.publisher);
+          // console.log("--------------------------------------/n");
+          // console.log("Copyright: " + unfluffData.copyright);
+          // console.log("--------------------------------------/n");
+          // console.log("Favicon: " + unfluffData.favicon);
+          // console.log("--------------------------------------/n");
+          // console.log("Description: " + unfluffData.description);
+          // console.log("--------------------------------------/n");
+          // console.log("Link: " + unfluffData.canonicalLink);
+          // console.log("--------------------------------------/n");
+          // console.log("Tags: " + unfluffData.tags);
+          // console.log("--------------------------------------/n");
+          // console.log("Image: " + unfluffData.image);
+          // console.log("--------------------------------------/n");
+          // console.log("Videos: " + unfluffData.videos);
+          // console.log("--------------------------------------/n");
+          // console.log("Links/descriptions: " + unfluffData.links);
+          // console.log("--------------------------------------/n");
+          // console.log("Text: " + unfluffData.text);
+          // console.log("--------------------------------------/n");
+          // console.log("keywords: " + unfluffData.keywords);
+          // console.log("--------------------------------------/n");
           let text = unfluffData.text;
 
+
           textQuotes = quoteParser.parse(text, 'en', { minLength: 10 });
-          console.log("quotes: " + textQuotes)
+          // console.log("quotes: " + textQuotes)
 
 
           let sentimentScore = sw(text);
           // console.log("Sentiment Data: " + JSON.stringify(sentiment));
           // console.log("--------------------------------------/n");
-          console.log("Sentiment Score: " + sentimentScore.sentiment);
-          console.log("--------------------------------------/n");
-          console.log("avgSentiment Score: " + sentimentScore.avgSentiment);
-          console.log("--------------------------------------/n");
-          console.log("objective Score: " + sentimentScore.objective);
-          console.log("--------------------------------------/n");
-          console.log("positive Score: " + sentimentScore.positive);
-          console.log("--------------------------------------/n");
-          console.log("negative Score: " + sentimentScore.negative);
-          console.log("--------------------------------------/n");
+          // console.log("Sentiment Score: " + sentimentScore.sentiment);
+          // console.log("--------------------------------------/n");
+          // console.log("avgSentiment Score: " + sentimentScore.avgSentiment);
+          // console.log("--------------------------------------/n");
+          // console.log("objective Score: " + sentimentScore.objective);
+          // console.log("--------------------------------------/n");
+          // console.log("positive Score: " + sentimentScore.positive);
+          // console.log("--------------------------------------/n");
+          // console.log("negative Score: " + sentimentScore.negative);
+          // console.log("--------------------------------------/n");
 
 
 
@@ -103,26 +106,26 @@ module.exports = {
           let compromisePeopleArr = [];
           let compromisePlacesArr = [];
           let compromiseOrgArr = [];
-          console.log("compromise topics: " + JSON.stringify(topics))
-          console.log("compromise people: " + JSON.stringify(people))
-          console.log("compromise places: " + JSON.stringify(places))
-          console.log("--------------------------------------/n");
+          // console.log("compromise topics: " + JSON.stringify(topics))
+          // console.log("compromise people: " + JSON.stringify(people))
+          // console.log("compromise places: " + JSON.stringify(places))
+          // console.log("--------------------------------------/n");
 
           for (let i = 0; i < topics.length; i++) {
             compromiseTopicsArr.push(topics[i].normal);
-            console.log("array: " + compromiseTopicsArr)
+            // console.log("array: " + compromiseTopicsArr)
           }
           for (let i = 0; i < people.length; i++) {
             compromisePeopleArr.push(people[i].normal);
-            console.log("array: " + compromisePeopleArr)
+            // console.log("array: " + compromisePeopleArr)
           }
           for (let i = 0; i < places.length; i++) {
             compromisePlacesArr.push(places[i].normal);
-            console.log("array: " + compromisePlacesArr)
+            // console.log("array: " + compromisePlacesArr)
           }
           for (let i = 0; i < orgs.length; i++) {
             compromiseOrgArr.push(orgs[i].normal);
-            console.log("array: " + compromiseOrgArr)
+            // console.log("array: " + compromiseOrgArr)
           }
 
           let result = {};
@@ -161,7 +164,7 @@ module.exports = {
           result.altLogo = altLogo;
 
 
-          console.log(result);
+          // console.log(result);
 
 
 
@@ -176,7 +179,7 @@ module.exports = {
 
 
   getFilteredPosts: function (req, res) {
-    console.log("Inside Controller " + req.params.search)
+    // console.log("Inside Controller " + req.params.search)
     db.Posts
     .find({ $text: { $search: req.params.search}})
     .then(dbModel => res.json(dbModel))
@@ -221,8 +224,8 @@ module.exports = {
   },
 
   updatePostComment: function (req, res) {
-    console.log("postId " + req.body.postId);
-    console.log("commentId " + req.body.commentId)
+    // console.log("postId " + req.body.postId);
+    // console.log("commentId " + req.body.commentId)
     db.Posts.findOneAndUpdate({"_id": req.body.postId},
     {$push:
       {
@@ -238,7 +241,7 @@ module.exports = {
 },
 
 findByUrl: function (req, res) {
-  console.log("In findByUrl" + req.body.articleSubmition)
+  // console.log("In findByUrl" + req.body.articleSubmition)
   db.Posts
     .find({ url: req.body.articleSubmition })
     .then(dbModel => res.json(dbModel))
@@ -272,9 +275,9 @@ findByUrl: function (req, res) {
       .catch(err => res.status(422).json(err));
   },
   remove: function (req, res) {
-    db.Post
-      .findById({ _id: req.params.id })
-      .then(dbModel => dbModel.remove())
+    // console.log("Inside the controller for delete: " + req.params.id)
+    db.Posts
+      .deleteOne({ _id: ObjectId(req.params.id) })
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },

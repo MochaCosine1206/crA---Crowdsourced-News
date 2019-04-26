@@ -30,15 +30,19 @@ export function SentimentBadge(props) {
 
         if((props.avgSentiment >= .1 && props.avgSentiment <= 1) || (props.avgSentiment <= -.1 && props.avgSentiment >=-1 )) {
             subjectiveSpan = <span className="badge badge-dark m-1">
-            More Biased <span className="badge badge-light">{props.avgSentiment.toFixed(4)}</span>
+            Very Emotional <span className="badge badge-light">{props.avgSentiment.toFixed(4)}</span>
           </span>
         } else if ((props.avgSentiment > .01 && props.avgSentiment < .1) || (props.avgSentiment < -.01 && props.avgSentiment >-.1 )) {
             subjectiveSpan = <span className="badge badge badge-dark m-1">
-            Slightly Biased <span className="badge badge-light">{props.avgSentiment.toFixed(4)}</span>
+            More Emotional <span className="badge badge-light">{props.avgSentiment.toFixed(4)}</span>
           </span>
         } else if ((props.avgSentiment > .001 && props.avgSentiment < .01) || (props.avgSentiment < -.001 && props.avgSentiment > -.01)) {
             subjectiveSpan = <span className="badge badge badge-dark m-1">
-            Less Biased <span className="badge badge-light">{props.avgSentiment.toFixed(4)}</span>
+            Less Emotional <span className="badge badge-light">{props.avgSentiment.toFixed(4)}</span>
+          </span>
+        } else if ((props.avgSentiment > .0001 && props.avgSentiment < .001) || (props.avgSentiment < -.0001 && props.avgSentiment > -.001)) {
+            subjectiveSpan = <span className="badge badge badge-dark m-1">
+            Not Emotional <span className="badge badge-light">{props.avgSentiment.toFixed(4)}</span>
           </span>
         }
 

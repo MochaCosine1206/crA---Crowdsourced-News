@@ -14,14 +14,13 @@ export function LoginCard(props) {
                     >
                     <div className="row h-100 align-items-center">
                         <div className="col-xs-12 col-md-6 border-right">
-                        <h3 id="loginHeader">crA crA</h3>
+                        <h1 id="loginHeader">crA</h1>
                         <ul>
                             <li><p>Share any article on the net</p></li>
                             <li><p>comment</p></li>
                         </ul>
                         </div>
                         <div className="col-xs-12 col-md-6">
-                        <h5 className="text-center">Log In with Google</h5>
                         <GoogleAuth />
                         </div>
                         </div>

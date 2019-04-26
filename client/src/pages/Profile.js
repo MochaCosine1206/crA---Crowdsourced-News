@@ -34,11 +34,17 @@ class Profile extends Component {
     
     }
 
-    getUserPosts(id){
+    getUserPosts = (id) => {
         API.getUserPosts(id)
         .then(res => {
-            // console.log(JSON.stringify(res.data[0].user_posts))
             this.setState({userPosts: res.data[0].user_posts})
+        })
+    }
+
+    deletePost = (id) => {
+        API.deletePost(id)
+        .then(res => {
+            this.getUserPosts(this.state.user._id)
         })
     }
 
@@ -48,14 +54,15 @@ render() {
     return (
         <div>
             <Navbar userImage={this.state.user.picture}/>
-            <div className="container">
+
             <ProfileTabs 
             userName = {this.state.user.fullName}
             userImage = {this.state.user.picture}
             email = {this.state.user.email}
             postData = {this.state.userPosts}
+            deletePost = {this.deletePost}
             />
-            </div>
+
         </div>
     );
 }

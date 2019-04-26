@@ -41,6 +41,11 @@ export default {
         return axios.get("/api/post/" + id);
     },
 
+    deletePost: function (id) {
+        console.log("Inside APi Delete: " + id)
+        return axios.delete("/api/post/" + id)
+    },
+
     getExistingPost: function (url) {
         console.log("In getExistingPost " + url)
         return axios.post("/api/post/existingPost/" , { articleSubmition: url });

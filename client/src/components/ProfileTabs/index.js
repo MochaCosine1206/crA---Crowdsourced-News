@@ -24,13 +24,13 @@ export function ProfileTabs(props) {
                     />
                 </div>
                 <div className="tab-pane fade" id="pills-posts" role="tabpanel" aria-labelledby="pills-posts-tab">
-                <table className="table table-hover ">
+                <div className="table-responsive-sm">
+                <table className="table">
                 <thead>
                     <tr>
                         <th scope="col">Post ID</th>
                         <th scope="col">Title</th>
                         <th scope="col">Author</th>
-                        <th scope="col">Descrip.</th>
                         <th scope="col">Comment Count</th>
                         <th scope="col">Delete Post</th>
                     </tr>
@@ -42,12 +42,13 @@ export function ProfileTabs(props) {
                         id={post._id}
                         title={post.title}
                         author={post.author}
-                        description={post.description}
                         commentsCount={post.comments.length}
+                        deletePost={props.deletePost}
                          />
                     ))}
                 </tbody>
                 </table>
+                </div>
                 </div>
             </div>
         </div>

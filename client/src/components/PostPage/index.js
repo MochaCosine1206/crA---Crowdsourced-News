@@ -12,6 +12,7 @@ class PostPage extends Component {
     state = {
         posts: [],
         post: "",
+        search: "",
         user: "",
         userId: "",
         dupError: "",
@@ -49,6 +50,7 @@ class PostPage extends Component {
             this.getPosts()
         } else {
             console.log("Before Filtering")
+            this.setState({search: ""});
             this.getFilteredPosts(newProps.match.params.search)
         }
     }
@@ -115,17 +117,21 @@ class PostPage extends Component {
         this.setState({
             [name]: value
         });
+        this.getFilteredPosts(this.state.search);
     };
 
     handleFormSubmit = event => {
         event.preventDefault();
         API.submitArticle(this.state.post).then(res => {
-            console.log("ERROR: " + res.data.name)
+            console.log("ERROR: " + JSON.stringify(res.data))
             if (res.data.name === "MongoError") {
                 this.setState({ dupError: "ERROR: " + JSON.stringify(res.data.errmsg) })
                 API.getExistingPost(this.state.post).then(res => {
-                    console.log("This is the post that already exists: " + res.data[0]._id)
-                    this.setState({ existingPost: res.data[0]._id })
+                    if (res.data[0]){
+                        console.log("This is the post that already exists: " + res.data[0]._id)
+                        this.setState({ existingPost: res.data[0]._id })
+                    }
+                    
                 })
             } else if (res.data.name ===  "ValidationError") {
                 this.setState({ noTextError: res.data.errors.title.message })
@@ -143,6 +149,7 @@ class PostPage extends Component {
     };
 
     postDetail = (id) => {
+        window.scrollTo(0, 0)
         this.props.history.push("/post/" + this.state.topic + "/" + id)
     }
 
@@ -167,13 +174,22 @@ class PostPage extends Component {
                     <Container>
                         {errAlert}
                         <Row>
-                            <Col size="xs-9 sm-10">
+                                <Col size="xs-4 sm-5">
                                 <Input
                                     type="text"
                                     value={this.state.post}
                                     onChange={this.handleInputChange}
                                     name="post"
                                     placeholder="Post article URL here (required)"
+                                />
+                            </Col>
+                            <Col size="xs-4 sm-5">
+                                <Input
+                                    type="text"
+                                    value={this.state.search}
+                                    onChange={this.handleInputChange}
+                                    name="search"
+                                    placeholder="Enter search terms here to filter posts"
                                 />
                             </Col>
                             <Col size="xs-3 sm-2">
@@ -198,7 +214,6 @@ class PostPage extends Component {
                                                 key={topic._id}
                                                 id={topic._id}
                                                 topic={topic._id}
-
                                             >
                                             </TopicsCard>
                                         ))}

@@ -9,7 +9,7 @@ function Navbar(props) {
       <nav className="navbar navbar-expand-lg navbar-light">
       <div className="mr-auto order-0">
         <Link id="navBrand" className="navbar-brand" to="/post/all">
-          crA crA - Crowdsourced News
+          cr<span id="navBrandSpan">A</span>
         </Link>
         </div>
         <div className="order-1">
