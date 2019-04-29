@@ -15,7 +15,7 @@ export function LoginCard(props) {
                     <div className="row h-100 align-items-center">
                         <div className="col-xs-12 col-md-6 border-right">
                         <h1 id="loginHeader">crA</h1>
-                        <ul>
+                        <ul id="loginBiline">
                             <li><p>Share any article on the net</p></li>
                             <li><p>comment</p></li>
                         </ul>

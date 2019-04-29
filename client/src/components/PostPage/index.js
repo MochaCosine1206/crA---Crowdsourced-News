@@ -170,6 +170,7 @@ class PostPage extends Component {
 
     render() {
         let errAlert;
+        let searchResultsJumbo;
         if (this.state.dupError) {
             errAlert = <div className="alert alert-light alert-dismissible fade show" role="alert">
                 Congratulations! Someone else already submitted this link, <Link to={"/post/" + this.state.topic + "/" + this.state.existingPost} class="alert-link">click here</Link> to read or comment.<button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -182,6 +183,14 @@ class PostPage extends Component {
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
+        }
+        console.log("Posts length: " + this.state.posts)
+        if (this.state.posts.length === 0) {
+            searchResultsJumbo = <div id="searchResultsJumbo" className="jumbotron-fluid">
+        <h1>Looks like there aren't any results, try searching for a broader topic.</h1>
+        </div>
+        } else {
+            searchResultsJumbo = null
         }
         return (
             <div>
@@ -266,6 +275,7 @@ class PostPage extends Component {
                         </div>
                     </div>
                 </div>
+                {searchResultsJumbo}
                 <div className="card-columns">
                     {this.state.posts.map(post => (
                         <CardPostContainer
