@@ -19,6 +19,7 @@ class PostPage extends Component {
         noTextError: "",
         existingPost: "",
         show: "",
+        loading: false,
         topics: [],
         places: [],
         people: [],
@@ -56,18 +57,20 @@ class PostPage extends Component {
     }
 
     getPosts = () => {
+        this.setState({ loading: true })
         API.getPosts()
             .then(res => {
-                this.setState({ posts: res.data, post: "" });
+                this.setState({ posts: res.data, post: "", loading: false });
             }).catch(err => console.log(err));
     }
 
     getFilteredPosts = (keyword) => {
+        this.setState({ loading: true })
         console.log("Search Value: " + keyword)
         API.getFilteredPosts(keyword)
             .then(res => {
                 console.log("After filtering data: " + res.data)
-                this.setState({ posts: res.data })
+                this.setState({ posts: res.data, loading: false })
             })
     }
 
@@ -137,6 +140,7 @@ class PostPage extends Component {
 
     handleFormSubmit = event => {
         event.preventDefault();
+        this.setState({ loading: true })
         API.submitArticle(this.state.post).then(res => {
             console.log("ERROR: " + JSON.stringify(res.data))
             if (res.data.name === "MongoError") {
@@ -144,12 +148,12 @@ class PostPage extends Component {
                 API.getExistingPost(this.state.post).then(res => {
                     if (res.data[0]){
                         console.log("This is the post that already exists: " + res.data[0]._id)
-                        this.setState({ existingPost: res.data[0]._id })
+                        this.setState({ existingPost: res.data[0]._id, loading: false })
                     }
                     
                 })
             } else if (res.data.name ===  "ValidationError") {
-                this.setState({ noTextError: res.data.errors.title.message })
+                this.setState({ noTextError: res.data.errors.title.message, loading: false })
             } else {
                 this.setState({ noTextError: "", dupError: "" })
                 console.log("This is the id of the post that was just created: " + res.data._id)
@@ -169,6 +173,7 @@ class PostPage extends Component {
     }
 
     render() {
+        let loading;
         let errAlert;
         let searchResultsJumbo;
         if (this.state.dupError) {
@@ -192,13 +197,22 @@ class PostPage extends Component {
         } else {
             searchResultsJumbo = null
         }
+        if (this.state.loading === true) {
+            loading = <button class="btn btn-secondary" type="button" disabled>
+            <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+            Loading...
+          </button>
+          
+        }
         return (
             <div>
                 <div className="jumbotron jumbotron-fluid">
                     <Container>
                         {errAlert}
                         <Row>
-                                <Col size="xs-4 sm-5">
+                        {loading}
+                                <Col size="xs-3 sm-4">
+                                
                                 <Input
                                     type="text"
                                     value={this.state.post}
@@ -207,7 +221,7 @@ class PostPage extends Component {
                                     placeholder="Post article URL here (required)"
                                 />
                             </Col>
-                            <Col size="xs-4 sm-5">
+                            <Col size="xs-3 sm-4">
                                 <Input
                                     type="text"
                                     value={this.state.search}
