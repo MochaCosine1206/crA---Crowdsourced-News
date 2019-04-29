@@ -185,7 +185,7 @@ class PostPage extends Component {
             </div>
         }
         console.log("Posts length: " + this.state.posts)
-        if (this.state.posts.length === 0) {
+        if (this.state.posts.length === 0 && this.state.search) {
             searchResultsJumbo = <div id="searchResultsJumbo" className="jumbotron-fluid">
         <h1>Looks like there aren't any results, try searching for a broader topic.</h1>
         </div>
